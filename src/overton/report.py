@@ -41,7 +41,7 @@ def _git_commit(paths: Paths) -> str:
     try:
         out = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=paths.root,
                              capture_output=True, text=True, check=True)
-        dirty = subprocess.run(["git", "status", "--porcelain"], cwd=paths.root,
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", "src", "config", "tests"], cwd=paths.root,
                                capture_output=True, text=True).stdout.strip()
         return out.stdout.strip() + (" (+uncommitted changes)" if dirty else "")
     except Exception:                                # noqa: BLE001
