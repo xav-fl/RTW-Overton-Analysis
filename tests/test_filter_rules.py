@@ -8,7 +8,8 @@ from overton.filter import apply_filter
 def rec(title="A Study of Things", **kw):
     base = {"title": title, "openalex_type": "article", "is_paratext": False,
             "is_retracted": False, "has_abstract": True, "doi": "10.1/x", "n_authors": 2,
-            "page_count": 30, "journal_key": "aer"}
+            "page_count": 30, "journal_key": "aer", "publication_year": 2016,
+            "volume": "106", "language": "en"}
     base.update(kw)
     return base
 
@@ -131,7 +132,7 @@ def test_word_flags_only_when_not_excluded():
 
 
 def test_fingerprint_stable_and_versioned():
-    assert fr.FILTER_VERSION == "F1"
+    assert fr.FILTER_VERSION == "F2"
     assert fr.rules_fingerprint() == fr.rules_fingerprint()
     assert len(fr.rules_fingerprint()) == 12
 
@@ -142,5 +143,40 @@ def test_apply_filter_columns():
     assert list(out["include"]) == [False, True]
     assert list(out["exclusion_reason"]) == ["E_FRONTMATTER", ""]
     assert out.loc[1, "review_flags"] == "F_ADMIN_WORD"
-    assert set(out["filter_version"]) == {"F1"}
+    assert set(out["filter_version"]) == {"F2"}
     assert set(out["rules_fingerprint"]) == {fr.rules_fingerprint()}
+
+
+# -- F2 rules -----------------------------------------------------------------
+
+def test_e_misdated():
+    floor = {"doi_volume_floor": 106.0}
+    assert reason("Bargaining under Uncertainty", doi="", volume="79", **floor) == "E_MISDATED"
+    assert reason("Bargaining under Uncertainty", doi="10.1/x", volume="79", **floor) == ""
+    assert reason("A 2016 Paper", doi="", volume="106", **floor) == ""
+    assert reason("A 2016 Paper", doi="", volume="105", **floor) == ""      # within slack
+    assert reason("A 2016 Paper", doi="", volume="", **floor) == ""
+    assert reason("A 2016 Paper", doi="", volume="79", doi_volume_floor=None) == ""
+
+
+def test_e_nonenglish_no_doi():
+    assert reason("鋼の極微細世界", doi="", language="ja") == "E_NONENGLISH_NO_DOI"
+    assert reason("Un article", doi="10.1/x", language="fr") == ""
+    assert reason("A Paper", doi="", language="en") == ""
+    assert reason("A Paper", doi="", language="") == ""
+
+
+def test_f1_rules_take_precedence_over_f2():
+    assert reason("Comment", doi="", volume="70", doi_volume_floor=106.0) == "E_COMMENT"
+
+
+def test_apply_filter_computes_volume_floor_per_journal_year():
+    df = pd.DataFrame([
+        rec("New Paper A", doi="10.1/a", volume="106"),
+        rec("New Paper B", doi="10.1/b", volume="107"),
+        rec("Old Paper", doi="", volume="72"),
+        rec("Undated Item", doi="", volume=""),
+        rec("Other Journal Old", doi="", volume="72", journal_key="qje"),   # no DOI floor
+    ])
+    out = apply_filter(df)
+    assert list(out["exclusion_reason"]) == ["", "", "E_MISDATED", "", ""]

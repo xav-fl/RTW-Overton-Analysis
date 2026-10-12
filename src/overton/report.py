@@ -33,6 +33,15 @@ DEVIATIONS = [
     "and stores only the `rate_limit` block.",
 ]
 
+DEVIATIONS.append(
+    "Filter F2 (added after reviewing the F1 run, at the user's request) adds two exclusion "
+    "rules applied after the F1 rules, both limited to works without a DOI: `E_MISDATED` "
+    "(numeric volume more than 1 below the lowest volume among DOI-bearing works of the same "
+    "journal-year; catches legacy records of 1969-1998 AER/JEL papers that OpenAlex dates "
+    "2016-01-01) and `E_NONENGLISH_NO_DOI` (language set and not English; catches Japanese "
+    "steel-engineering papers attached to the Journal of Financial Economics source). "
+    "Neither rule is in the brief.")
+
 PAPER_EXTRA = ["in_top15_economics_only", "in_top15_all_fields", "filter_version",
                "rules_fingerprint"]
 

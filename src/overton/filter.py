@@ -8,10 +8,20 @@ from .normalise import load_works
 from .settings import Paths
 
 
+def doi_volume_floor(works: pd.DataFrame) -> pd.Series:
+    """Per work: the lowest numeric volume among DOI-bearing works of its journal-year."""
+    vol = pd.to_numeric(works["volume"], errors="coerce")
+    has_doi = works["doi"].fillna("").astype(str).str.strip().ne("")
+    key = [works["journal_key"], works["publication_year"]]
+    return vol.where(has_doi).groupby(key).transform("min")
+
+
 def apply_filter(works: pd.DataFrame) -> pd.DataFrame:
     df = works.copy()
+    floors = doi_volume_floor(df)
     reasons, flags = [], []
-    for rec in df.to_dict("records"):
+    for rec, floor in zip(df.to_dict("records"), floors):
+        rec["doi_volume_floor"] = floor
         reason = fr.exclusion_reason(rec)
         reasons.append(reason)
         flags.append(";".join(fr.review_flags(rec, excluded=bool(reason))))

@@ -20,12 +20,18 @@ import json
 import re
 import unicodedata
 
-FILTER_VERSION = "F1"
+FILTER_VERSION = "F2"
+
+#: F2 (2026-10-12) adds E_MISDATED and E_NONENGLISH_NO_DOI, applied after the F1
+#: rules. Both target OpenAlex metadata errors found in the F1 run: legacy
+#: records of old papers carrying a placeholder 2016 date (AER, JEL, ...) and
+#: works attached to the wrong source (Japanese steel papers under JFE). Both
+#: require a missing DOI, so no DOI-bearing work can be excluded by them.
 
 INCLUDED_TYPES = ("article", "review")
 
 #: Exclusion rules, applied in this order; the first match sets exclusion_reason.
-#: E_TYPE and E_PARATEXT test record fields; the rest test the title.
+#: E_TYPE, E_PARATEXT and the last two test record fields; the rest test the title.
 EXCLUSION_RULES: list[dict] = [
     {"code": "E_TYPE", "field": "openalex_type", "not_in": list(INCLUDED_TYPES)},
     {"code": "E_PARATEXT", "field": "is_paratext", "is_true": True},
@@ -65,7 +71,15 @@ EXCLUSION_RULES: list[dict] = [
     {"code": "E_READING",
      "start": ["recommendations for further reading"],
      "eq": ["correspondence"]},
+    {"code": "E_MISDATED", "field": "volume",
+     "test": "no DOI, and numeric volume more than VOLUME_SLACK below the lowest "
+             "volume among DOI-bearing works of the same journal-year",
+     "slack": 1},
+    {"code": "E_NONENGLISH_NO_DOI", "field": "language",
+     "test": "no DOI, and language is set and not English", "allowed": ["en"]},
 ]
+
+VOLUME_SLACK = 1
 
 #: Review flags. Title patterns are regexes over the normalised title.
 FLAG_RULES: list[dict] = [
@@ -86,6 +100,7 @@ FLAG_RULES: list[dict] = [
 def rules_fingerprint() -> str:
     """sha256 (first 12 hex chars) of the rule definitions and version."""
     blob = json.dumps({"version": FILTER_VERSION, "exclusions": EXCLUSION_RULES,
+                       "volume_slack": VOLUME_SLACK,
                        "flags": FLAG_RULES}, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
 
@@ -138,6 +153,14 @@ def _compile(rule: dict) -> re.Pattern | None:
 
 
 _TITLE_RULES = [(r["code"], _compile(r)) for r in EXCLUSION_RULES if "field" not in r]
+
+
+def _num(v):
+    try:
+        f = float(str(v).strip())
+    except (TypeError, ValueError):
+        return None
+    return None if f != f else f
 _FLAG_REGEX = {r["code"]: re.compile(r["regex"]) for r in FLAG_RULES if "regex" in r}
 
 
@@ -162,6 +185,13 @@ def exclusion_reason(rec: dict) -> str:
     for code, rx in _TITLE_RULES:
         if title and rx.search(title):
             return code
+    if _blank(rec.get("doi")):
+        vol, floor = _num(rec.get("volume")), _num(rec.get("doi_volume_floor"))
+        if vol is not None and floor is not None and vol < floor - VOLUME_SLACK:
+            return "E_MISDATED"
+        lang = "" if _blank(rec.get("language")) else str(rec["language"]).strip().lower()
+        if lang and lang != "en":
+            return "E_NONENGLISH_NO_DOI"
     return ""
 
 
