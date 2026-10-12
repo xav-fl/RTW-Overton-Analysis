@@ -174,7 +174,8 @@ def load_works(paths: Paths, filtered: bool = False) -> pd.DataFrame:
                      dtype={"doi": str, "volume": str, "issue": str, "first_page": str,
                             "last_page": str, "title": str, "abstract": str,
                             "review_flags": str, "exclusion_reason": str},
-                     keep_default_na=False, na_values=[""], encoding="utf-8")
+                     keep_default_na=False, na_values=[""], encoding="utf-8",
+                     low_memory=False)
     for c in ("doi", "title", "abstract", "review_flags", "exclusion_reason"):
         if c in df:
             df[c] = df[c].fillna("")

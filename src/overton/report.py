@@ -234,7 +234,7 @@ def run_report(paths: Paths, df: pd.DataFrame, hr: pd.DataFrame, rel: dict) -> s
     L += ["## 7. Included abstracts containing \"JEL\"", "",
           f"{int(inc['abstract_mentions_jel'].astype(bool).sum())} of {len(inc)} included works "
           f"(of which {int(inc['has_abstract'].astype(bool).sum())} have an abstract).", ""]
-    hundred = df[df["n_authors"] >= 100]
+    hundred = df[df["n_authors"] == 100]
     L += ["Works with exactly 100 authorships (OpenAlex truncation limit): "
           f"{len(hundred)}" + (": " + ", ".join(hundred["openalex_id"]) if len(hundred) else ""),
           ""]
