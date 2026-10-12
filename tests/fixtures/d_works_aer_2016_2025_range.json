@@ -1,0 +1,902 @@
+{
+ "request_url": "https://api.openalex.org/works?filter=primary_location.source.id%3AS23254222%2Cpublication_year%3A2016-2025&per_page=1",
+ "response": {
+  "meta": {
+   "count": 2351,
+   "db_response_time_ms": 9,
+   "page": 1,
+   "per_page": 1,
+   "groups_count": null,
+   "x_query": {
+    "oql": "get works where source is (S23254222) and published from 2016 through 2025",
+    "oqo": {
+     "get_rows": "works",
+     "filter_rows": [
+      {
+       "column_id": "primary_location.source.id",
+       "value": "S23254222"
+      },
+      {
+       "column_id": "publication_year",
+       "value": 2016,
+       "operator": ">="
+      },
+      {
+       "column_id": "publication_year",
+       "value": 2025,
+       "operator": "<="
+      }
+     ]
+    },
+    "url": "/works?filter=primary_location.source.id:S23254222,publication_year:2016-2025&per_page=1"
+   },
+   "cost_usd": 0.0001
+  },
+  "results": [
+   {
+    "id": "https://openalex.org/W2979586175",
+    "doi": "https://doi.org/10.1257/aer.20181169",
+    "title": "Two-Way Fixed Effects Estimators with Heterogeneous Treatment Effects",
+    "display_name": "Two-Way Fixed Effects Estimators with Heterogeneous Treatment Effects",
+    "publication_year": 2020,
+    "publication_date": "2020-09-01",
+    "ids": {
+     "openalex": "https://openalex.org/W2979586175",
+     "doi": "https://doi.org/10.1257/aer.20181169",
+     "mag": "2979586175"
+    },
+    "language": "en",
+    "primary_location": {
+     "id": "doi:10.1257/aer.20181169",
+     "doi": "https://doi.org/10.1257/aer.20181169",
+     "is_oa": false,
+     "landing_page_url": "https://doi.org/10.1257/aer.20181169",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S23254222",
+      "display_name": "American Economic Review",
+      "issn_l": "0002-8282",
+      "issn": [
+       "0002-8282",
+       "1944-7981"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+       "abdc-a-star",
+       "anvur-class-a",
+       "anvur-scientific",
+       "cwts-core",
+       "fnege-1-star",
+       "ft50",
+       "jufo-3",
+       "norway-2",
+       "poland-200",
+       "russia-white-list-1",
+       "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310315912",
+      "host_organization_name": "American Economic Association",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310315912"
+      ],
+      "host_organization_lineage_names": [
+       "American Economic Association"
+      ],
+      "type": "journal"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "American Economic Review",
+     "raw_type": "journal-article"
+    },
+    "volume": null,
+    "type": "article",
+    "indexed_in": [
+     "arxiv",
+     "crossref"
+    ],
+    "open_access": {
+     "is_oa": true,
+     "oa_status": "green",
+     "oa_url": "https://arxiv.org/pdf/1803.08807",
+     "any_repository_has_fulltext": true
+    },
+    "authorships": [
+     {
+      "author_position": "first",
+      "author": {
+       "id": "https://openalex.org/A5037977205",
+       "display_name": "Clément de Chaisemartin",
+       "orcid": null,
+       "observed_orcids": []
+      },
+      "institutions": [
+       {
+        "id": "https://openalex.org/I154570441",
+        "display_name": "University of California, Santa Barbara",
+        "ror": "https://ror.org/02t274463",
+        "country_code": "US",
+        "type": "education",
+        "lineage": [
+         "https://openalex.org/I154570441"
+        ]
+       }
+      ],
+      "countries": [
+       "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Clément de Chaisemartin",
+      "raw_affiliation_strings": [
+       "University of California at Santa Barbara (email: )"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+       {
+        "raw_affiliation_string": "University of California at Santa Barbara (email: )",
+        "institution_ids": [
+         "https://openalex.org/I154570441"
+        ]
+       }
+      ]
+     },
+     {
+      "author_position": "last",
+      "author": {
+       "id": "https://openalex.org/A5083851284",
+       "display_name": "Xavier D’Haultfœuille",
+       "orcid": null,
+       "observed_orcids": []
+      },
+      "institutions": [
+       {
+        "id": "https://openalex.org/I4210137396",
+        "display_name": "Centre de Recherche en Économie et Statistique",
+        "ror": "https://ror.org/0449khs19",
+        "country_code": "FR",
+        "type": "facility",
+        "lineage": [
+         "https://openalex.org/I1294671590",
+         "https://openalex.org/I142476485",
+         "https://openalex.org/I4210108488",
+         "https://openalex.org/I4210137396",
+         "https://openalex.org/I4210145102",
+         "https://openalex.org/I4210150854",
+         "https://openalex.org/I84009706"
+        ]
+       }
+      ],
+      "countries": [
+       "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Xavier D’Haultfœuille",
+      "raw_affiliation_strings": [
+       "CREST-ENSAE (email: )"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+       {
+        "raw_affiliation_string": "CREST-ENSAE (email: )",
+        "institution_ids": [
+         "https://openalex.org/I4210137396"
+        ]
+       }
+      ]
+     }
+    ],
+    "institutions": [],
+    "countries_distinct_count": 2,
+    "institutions_distinct_count": 2,
+    "corresponding_author_ids": [],
+    "corresponding_institution_ids": [],
+    "apc_list": null,
+    "apc_paid": null,
+    "fwci": 260.3328,
+    "has_fulltext": false,
+    "cited_by_count": 4943,
+    "citation_normalized_percentile": {
+     "value": 0.99990448,
+     "is_in_top_1_percent": true,
+     "is_in_top_10_percent": true
+    },
+    "cited_by_percentile_year": {
+     "min": 89,
+     "max": 100
+    },
+    "biblio": {
+     "volume": "110",
+     "issue": "9",
+     "first_page": "2964",
+     "last_page": "2996"
+    },
+    "is_retracted": false,
+    "is_paratext": false,
+    "is_xpac": false,
+    "primary_topic": {
+     "id": "https://openalex.org/T10845",
+     "display_name": "Advanced Causal Inference Techniques",
+     "score": 0.9984999895095825,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2613",
+      "display_name": "Statistics and Probability"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/26",
+      "display_name": "Mathematics"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    "topics": [
+     {
+      "id": "https://openalex.org/T10845",
+      "display_name": "Advanced Causal Inference Techniques",
+      "score": 0.9984999895095825,
+      "subfield": {
+       "id": "https://openalex.org/subfields/2613",
+       "display_name": "Statistics and Probability"
+      },
+      "field": {
+       "id": "https://openalex.org/fields/26",
+       "display_name": "Mathematics"
+      },
+      "domain": {
+       "id": "https://openalex.org/domains/3",
+       "display_name": "Physical Sciences"
+      }
+     },
+     {
+      "id": "https://openalex.org/T11911",
+      "display_name": "Spatial and Panel Data Analysis",
+      "score": 0.00039999998989515007,
+      "subfield": {
+       "id": "https://openalex.org/subfields/2002",
+       "display_name": "Economics and Econometrics"
+      },
+      "field": {
+       "id": "https://openalex.org/fields/20",
+       "display_name": "Economics, Econometrics and Finance"
+      },
+      "domain": {
+       "id": "https://openalex.org/domains/2",
+       "display_name": "Social Sciences"
+      }
+     },
+     {
+      "id": "https://openalex.org/T10243",
+      "display_name": "Statistical Methods and Bayesian Inference",
+      "score": 9.999999747378752e-05,
+      "subfield": {
+       "id": "https://openalex.org/subfields/2613",
+       "display_name": "Statistics and Probability"
+      },
+      "field": {
+       "id": "https://openalex.org/fields/26",
+       "display_name": "Mathematics"
+      },
+      "domain": {
+       "id": "https://openalex.org/domains/3",
+       "display_name": "Physical Sciences"
+      }
+     }
+    ],
+    "keywords": [
+     {
+      "id": "https://openalex.org/keywords/two-way-fixed-effects",
+      "display_name": "two-way fixed effects",
+      "score": 0.8930000066757202
+     },
+     {
+      "id": "https://openalex.org/keywords/treatment-heterogeneity",
+      "display_name": "treatment effect heterogeneity",
+      "score": 0.9670000076293945
+     },
+     {
+      "id": "https://openalex.org/keywords/average-treatment-effect",
+      "display_name": "average treatment effect",
+      "score": 0.9259999990463257
+     },
+     {
+      "id": "https://openalex.org/keywords/negative-weights",
+      "display_name": "negative weights",
+      "score": 0.5289999842643738
+     },
+     {
+      "id": "https://openalex.org/keywords/treatment-effect-estimation",
+      "display_name": "treatment effect estimation",
+      "score": 0.6140000224113464
+     }
+    ],
+    "concepts": [
+     {
+      "id": "https://openalex.org/C185429906",
+      "wikidata": "https://www.wikidata.org/wiki/Q1130160",
+      "display_name": "Estimator",
+      "level": 2,
+      "score": 0.8337984085083008
+     },
+     {
+      "id": "https://openalex.org/C48921125",
+      "wikidata": "https://www.wikidata.org/wiki/Q10861030",
+      "display_name": "Linear regression",
+      "level": 2,
+      "score": 0.6688624620437622
+     },
+     {
+      "id": "https://openalex.org/C149782125",
+      "wikidata": "https://www.wikidata.org/wiki/Q160039",
+      "display_name": "Econometrics",
+      "level": 1,
+      "score": 0.6257284879684448
+     },
+     {
+      "id": "https://openalex.org/C33923547",
+      "wikidata": "https://www.wikidata.org/wiki/Q395",
+      "display_name": "Mathematics",
+      "level": 0,
+      "score": 0.562460720539093
+     },
+     {
+      "id": "https://openalex.org/C83546350",
+      "wikidata": "https://www.wikidata.org/wiki/Q1139051",
+      "display_name": "Regression",
+      "level": 2,
+      "score": 0.529751181602478
+     },
+     {
+      "id": "https://openalex.org/C162324750",
+      "wikidata": "https://www.wikidata.org/wiki/Q8134",
+      "display_name": "Economics",
+      "level": 0,
+      "score": 0.5289271473884583
+     },
+     {
+      "id": "https://openalex.org/C105795698",
+      "wikidata": "https://www.wikidata.org/wiki/Q12483",
+      "display_name": "Statistics",
+      "level": 1,
+      "score": 0.480092316865921
+     },
+     {
+      "id": "https://openalex.org/C44970651",
+      "wikidata": "https://www.wikidata.org/wiki/Q17014030",
+      "display_name": "Fixed effects model",
+      "level": 3,
+      "score": 0.42174625396728516
+     },
+     {
+      "id": "https://openalex.org/C89337504",
+      "wikidata": "https://www.wikidata.org/wiki/Q4828276",
+      "display_name": "Average treatment effect",
+      "level": 3,
+      "score": 0.4165630042552948
+     },
+     {
+      "id": "https://openalex.org/C6422946",
+      "wikidata": "https://www.wikidata.org/wiki/Q857354",
+      "display_name": "Panel data",
+      "level": 2,
+      "score": 0.30764397978782654
+     }
+    ],
+    "mesh": [],
+    "locations_count": 3,
+    "locations": [
+     {
+      "id": "doi:10.1257/aer.20181169",
+      "doi": "https://doi.org/10.1257/aer.20181169",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1257/aer.20181169",
+      "pdf_url": null,
+      "source": {
+       "id": "https://openalex.org/S23254222",
+       "display_name": "American Economic Review",
+       "issn_l": "0002-8282",
+       "issn": [
+        "0002-8282",
+        "1944-7981"
+       ],
+       "is_oa": false,
+       "is_in_doaj": false,
+       "is_core": true,
+       "listed_in": [
+        "abdc-a-star",
+        "anvur-class-a",
+        "anvur-scientific",
+        "cwts-core",
+        "fnege-1-star",
+        "ft50",
+        "jufo-3",
+        "norway-2",
+        "poland-200",
+        "russia-white-list-1",
+        "vabb-shw"
+       ],
+       "host_organization": "https://openalex.org/P4310315912",
+       "host_organization_name": "American Economic Association",
+       "host_organization_lineage": [
+        "https://openalex.org/P4310315912"
+       ],
+       "host_organization_lineage_names": [
+        "American Economic Association"
+       ],
+       "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "American Economic Review",
+      "raw_type": "journal-article"
+     },
+     {
+      "id": "pmh:oai:arXiv.org:1803.08807",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "http://arxiv.org/abs/1803.08807",
+      "pdf_url": "https://arxiv.org/pdf/1803.08807",
+      "source": {
+       "id": "https://openalex.org/S4306400194",
+       "display_name": "arXiv (Cornell University)",
+       "issn_l": "2331-8422",
+       "issn": [
+        "2331-8422"
+       ],
+       "is_oa": true,
+       "is_in_doaj": false,
+       "is_core": false,
+       "listed_in": [],
+       "host_organization": "https://openalex.org/I205783295",
+       "host_organization_name": "Cornell University",
+       "host_organization_lineage": [
+        "https://openalex.org/I205783295"
+       ],
+       "host_organization_lineage_names": [],
+       "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "text"
+     },
+     {
+      "id": "pmh:oai:RePEc:aea:aecrev:v:110:y:2020:i:9:p:2964-96",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://www.aeaweb.org/doi/10.1257/aer.20181169",
+      "pdf_url": null,
+      "source": {
+       "id": "https://openalex.org/S4306401271",
+       "display_name": "RePEc: Research Papers in Economics",
+       "issn_l": null,
+       "issn": null,
+       "is_oa": false,
+       "is_in_doaj": false,
+       "is_core": false,
+       "listed_in": [],
+       "host_organization": "https://openalex.org/I77793887",
+       "host_organization_name": "Federal Reserve Bank of St. Louis",
+       "host_organization_lineage": [
+        "https://openalex.org/I77793887"
+       ],
+       "host_organization_lineage_names": [],
+       "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "article"
+     }
+    ],
+    "best_oa_location": {
+     "id": "pmh:oai:arXiv.org:1803.08807",
+     "doi": null,
+     "is_oa": true,
+     "landing_page_url": "http://arxiv.org/abs/1803.08807",
+     "pdf_url": "https://arxiv.org/pdf/1803.08807",
+     "source": {
+      "id": "https://openalex.org/S4306400194",
+      "display_name": "arXiv (Cornell University)",
+      "issn_l": "2331-8422",
+      "issn": [
+       "2331-8422"
+      ],
+      "is_oa": true,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/I205783295",
+      "host_organization_name": "Cornell University",
+      "host_organization_lineage": [
+       "https://openalex.org/I205783295"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "text"
+    },
+    "sustainable_development_goals": [],
+    "sustainable_development_goals_aurora": [
+     {
+      "id": "https://metadata.un.org/sdg/3",
+      "score": 0.6000000238418579,
+      "display_name": "Good health and well-being"
+     }
+    ],
+    "study_designs": [],
+    "awards": [
+     {
+      "id": "https://openalex.org/G3024506935",
+      "display_name": "Idex Paris-Saclay",
+      "funder_award_id": "ANR-11-IDEX-0003",
+      "funder_id": "https://openalex.org/F4320320883",
+      "funder_display_name": "Agence Nationale de la Recherche"
+     },
+     {
+      "id": "https://openalex.org/G3422114361",
+      "display_name": "On Treatment Effects estimation using LOngitudinal data",
+      "funder_award_id": "ANR-17-CE26-0015",
+      "funder_id": "https://openalex.org/F4320320883",
+      "funder_display_name": "Agence Nationale de la Recherche"
+     },
+     {
+      "id": "https://openalex.org/G3561798612",
+      "display_name": "Réguler l'économie au service de la société",
+      "funder_award_id": "ANR-11-LABX-0047",
+      "funder_id": "https://openalex.org/F4320320883",
+      "funder_display_name": "Agence Nationale de la Recherche"
+     }
+    ],
+    "funders": [
+     {
+      "id": "https://openalex.org/F4320320883",
+      "display_name": "Agence Nationale de la Recherche",
+      "ror": "https://ror.org/00rbzpz17"
+     }
+    ],
+    "has_content": {
+     "pdf": false,
+     "grobid_xml": false
+    },
+    "content_urls": null,
+    "referenced_works_count": 14,
+    "referenced_works": [
+     "https://openalex.org/W2109605428",
+     "https://openalex.org/W2109819847",
+     "https://openalex.org/W2121491889",
+     "https://openalex.org/W2136885855",
+     "https://openalex.org/W2151367131",
+     "https://openalex.org/W2249756302",
+     "https://openalex.org/W2951689186",
+     "https://openalex.org/W2954822871",
+     "https://openalex.org/W3025590548",
+     "https://openalex.org/W3121301164",
+     "https://openalex.org/W3121720779",
+     "https://openalex.org/W3121907612",
+     "https://openalex.org/W3124366560",
+     "https://openalex.org/W3125376370"
+    ],
+    "related_works": [
+     "https://openalex.org/W2769734385",
+     "https://openalex.org/W3109597093",
+     "https://openalex.org/W2268946947",
+     "https://openalex.org/W2033916206",
+     "https://openalex.org/W3087554292",
+     "https://openalex.org/W3201649299",
+     "https://openalex.org/W3124646439",
+     "https://openalex.org/W3090026150",
+     "https://openalex.org/W2599338361",
+     "https://openalex.org/W2365071437"
+    ],
+    "abstract_inverted_index": {
+     "Linear": [
+      0
+     ],
+     "regressions": [
+      1
+     ],
+     "with": [
+      2,
+      34
+     ],
+     "period": [
+      3
+     ],
+     "and": [
+      4,
+      32
+     ],
+     "group": [
+      5,
+      31
+     ],
+     "fixed": [
+      6
+     ],
+     "effects": [
+      7,
+      26
+     ],
+     "are": [
+      8,
+      58
+     ],
+     "widely": [
+      9
+     ],
+     "used": [
+      10
+     ],
+     "to": [
+      11,
+      41
+     ],
+     "estimate": [
+      12,
+      19
+     ],
+     "treatment": [
+      13,
+      25
+     ],
+     "effects.": [
+      14
+     ],
+     "We": [
+      15,
+      60
+     ],
+     "show": [
+      16
+     ],
+     "that": [
+      17,
+      36,
+      64
+     ],
+     "they": [
+      18
+     ],
+     "weighted": [
+      20
+     ],
+     "sums": [
+      21
+     ],
+     "of": [
+      22
+     ],
+     "the": [
+      23,
+      42,
+      45,
+      56,
+      69,
+      79
+     ],
+     "average": [
+      24
+     ],
+     "(ATE": [
+      27
+     ],
+     ")": [
+      28
+     ],
+     "in": [
+      29
+     ],
+     "each": [
+      30
+     ],
+     "period,": [
+      33
+     ],
+     "weights": [
+      35
+     ],
+     "may": [
+      37,
+      49
+     ],
+     "be": [
+      38,
+      52
+     ],
+     "negative.": [
+      39
+     ],
+     "Due": [
+      40
+     ],
+     "negative": [
+      43,
+      53
+     ],
+     "weights,": [
+      44
+     ],
+     "linear": [
+      46,
+      80
+     ],
+     "regression": [
+      47,
+      81
+     ],
+     "coefficient": [
+      48
+     ],
+     "for": [
+      50
+     ],
+     "instance": [
+      51
+     ],
+     "while": [
+      54
+     ],
+     "all": [
+      55
+     ],
+     "ATEs": [
+      57
+     ],
+     "positive.": [
+      59
+     ],
+     "propose": [
+      61
+     ],
+     "another": [
+      62
+     ],
+     "estimator": [
+      63
+     ],
+     "solves": [
+      65
+     ],
+     "this": [
+      66
+     ],
+     "issue.": [
+      67
+     ],
+     "In": [
+      68
+     ],
+     "two": [
+      70
+     ],
+     "applications": [
+      71
+     ],
+     "we": [
+      72
+     ],
+     "revisit,": [
+      73
+     ],
+     "it": [
+      74
+     ],
+     "is": [
+      75
+     ],
+     "significantly": [
+      76
+     ],
+     "different": [
+      77
+     ],
+     "from": [
+      78
+     ],
+     "estimator.": [
+      82
+     ],
+     "(JEL": [
+      83
+     ],
+     "C21,": [
+      84
+     ],
+     "C23,": [
+      85
+     ],
+     "D72,": [
+      86
+     ],
+     "J31,": [
+      87
+     ],
+     "J51,": [
+      88
+     ],
+     "L82)": [
+      89
+     ]
+    },
+    "counts_by_year": [
+     {
+      "year": 2026,
+      "cited_by_count": 1157
+     },
+     {
+      "year": 2025,
+      "cited_by_count": 1194
+     },
+     {
+      "year": 2024,
+      "cited_by_count": 1023
+     },
+     {
+      "year": 2023,
+      "cited_by_count": 680
+     },
+     {
+      "year": 2022,
+      "cited_by_count": 483
+     },
+     {
+      "year": 2021,
+      "cited_by_count": 254
+     },
+     {
+      "year": 2020,
+      "cited_by_count": 91
+     },
+     {
+      "year": 2019,
+      "cited_by_count": 32
+     },
+     {
+      "year": 2018,
+      "cited_by_count": 18
+     },
+     {
+      "year": 2017,
+      "cited_by_count": 6
+     },
+     {
+      "year": 2016,
+      "cited_by_count": 2
+     },
+     {
+      "year": 2015,
+      "cited_by_count": 1
+     },
+     {
+      "year": 2014,
+      "cited_by_count": 1
+     }
+    ],
+    "updated_date": "2026-10-12T09:40:04.860316",
+    "created_date": "2025-10-10T00:00:00"
+   }
+  ],
+  "group_by": []
+ }
+}
