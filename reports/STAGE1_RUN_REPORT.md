@@ -4,7 +4,7 @@
 
 - Report generated: 2026-10-12 21:15 UTC
 - Harvest dates: 2026-10-12
-- Git commit: `fbc7eed (+uncommitted changes)`
+- Git commit: `47aba4a`
 - Filter: `F1`, rules fingerprint `bfaef829d9ac`
 - OpenAlex usage logged across networked commands: 728 successful requests, $0.0728 of the daily allowance (remaining after last command: $0.9252; resets 2026-10-13T00:00:00.000Z)
 
