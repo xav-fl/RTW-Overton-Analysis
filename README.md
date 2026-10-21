@@ -53,7 +53,7 @@ the same command after midnight UTC and the harvest resumes where it stopped.
 Codes each paper in `papers_stage1.csv` with Claude (`claude-opus-5-5`, adaptive
 thinking, effort `medium`): one request per paper, answers constrained to a JSON
 schema. The codebook the model follows is
-[config/llm_codebook_v0.1.txt](config/llm_codebook_v0.1.txt) — a draft for review;
+[config/llm_codebook_v0.2.txt](config/llm_codebook_v0.2.txt) — a draft for review;
 edit it, bump `LLM_CODEBOOK_VERSION` in `settings.py`, and the next run codes under
 a new run key without overwriting earlier answers. JEL codes come from
 `config/jel_taxonomy_compact.txt` (shared with the speeches project).
@@ -64,6 +64,8 @@ a new run key without overwriting earlier answers. JEL codes come from
 | `jel_codes_author` | parsed from abstracts that list them (2,164 papers); removed before coding, then compared: `llm_jel_overlaps_author` |
 | `llm_cat_*` (8 survey categories, yes/no each), `llm_primary_policy_category` | model |
 | `llm_item_type`, `llm_research_type`, `llm_empirical_design`, `llm_is_review`, `llm_is_empirical`, `llm_causal_design` | model |
+| `llm_policy_evaluation`: a causal-effect or unintended-consequences category, with an experimental, quasi-experimental or structural design | computed from the model's fields |
+| `llm_policy_evaluation`: causal or unintended-consequences category, with an experimental, quasi-experimental or structural design | computed from the model fields |
 | `llm_policy_reference` (none / existing / proposed / both) | model |
 | `llm_jargon`, `llm_sentence_complexity` (1–5) | model |
 | `abs_flesch_reading_ease`, `abs_flesch_kincaid_grade`, `abs_words_per_sentence`, … | computed in code |
@@ -88,6 +90,7 @@ claude auth login          # or: & "$env:LOCALAPPDATA\Claude-Data\...\claude.exe
 .venv\Scripts\python -m overton llm-sample                 # 100-paper validation sample -> data/review/
 .venv\Scripts\python -m overton llm-run --sample           # code the sample
 .venv\Scripts\python -m overton llm-assemble               # -> data/release/papers_coded.csv, reports/LLM_CODING_REPORT.md
+.venv\Scripts\python -m overton llm-compare --old <run key>   # after revising the codebook: what changed
 .venv\Scripts\python -m overton llm-agreement --human data/review/llm_validation_sample_coded.csv
 .venv\Scripts\python -m overton llm-run --all              # everything else (resumes if stopped)
 .venv\Scripts\python -m overton llm-assemble

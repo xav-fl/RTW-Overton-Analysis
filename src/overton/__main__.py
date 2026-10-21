@@ -1,5 +1,6 @@
 """CLI: python -m overton {resolve,harvest,normalise,filter,report,all} (Stage 1)
-and {llm-sample,llm-run,llm-submit,llm-collect,llm-assemble,llm-agreement} (Stage 2).
+and {llm-sample,llm-run,llm-submit,llm-collect,llm-assemble,llm-compare,
+llm-agreement} (Stage 2).
 
 Exit codes: 0 ok, 2 a gate failed, 3 OpenAlex budget or rate limit reached
 (re-run the same command after midnight UTC; the harvest resumes), 4 the
@@ -247,6 +248,15 @@ def cmd_llm_agreement(paths: Paths, human: str) -> None:
     print(f"  wrote {paths.llm_agreement.relative_to(paths.root)}")
 
 
+def cmd_llm_compare(paths: Paths, args) -> None:
+    print("== Stage 2: compare runs")
+    new = args.new or llm_assemble.current_run_key(paths)
+    summary, changed = llm_assemble.compare_runs(paths, args.old, new)
+    print(f"  {args.old} -> {new}: {summary['n'].max()} papers coded in both")
+    print(summary.to_string(index=False))
+    print(f"  {len(changed)} changed answers listed in reports/llm_compare_{args.old}_{new}_changes.csv")
+
+
 def _llm_args(p) -> None:
     p.add_argument("--model", default=settings.LLM_MODEL)
     p.add_argument("--effort", default=settings.LLM_EFFORT,
@@ -280,6 +290,9 @@ def main(argv=None) -> int:
     q = sub.add_parser("llm-assemble")
     _llm_args(q)
     q.add_argument("--run-key", help="assemble this run key instead of the current settings'")
+    q = sub.add_parser("llm-compare")
+    q.add_argument("--old", required=True, help="run key to compare from")
+    q.add_argument("--new", help="run key to compare to (default: the current settings')")
     q = sub.add_parser("llm-agreement")
     q.add_argument("--human", required=True, help="filled-in copy of the validation sample")
     args = p.parse_args(argv)
@@ -313,6 +326,8 @@ def main(argv=None) -> int:
             cmd_llm_collect(paths)
         elif args.command == "llm-assemble":
             cmd_llm_assemble(paths, args)
+        elif args.command == "llm-compare":
+            cmd_llm_compare(paths, args)
         elif args.command == "llm-agreement":
             cmd_llm_agreement(paths, args.human)
     except llm_code.ProviderStopped as exc:

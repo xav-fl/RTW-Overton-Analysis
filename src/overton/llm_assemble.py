@@ -17,8 +17,11 @@ from .settings import Paths
 #: LLM fields that depend on the abstract; blank when only the title was sent.
 ABSTRACT_FIELDS = (["llm_research_type", "llm_empirical_design", "llm_primary_policy_category",
                     "llm_policy_reference", "llm_jargon", "llm_sentence_complexity",
-                    "llm_is_review", "llm_is_empirical", "llm_causal_design"]
+                    "llm_is_review", "llm_is_empirical", "llm_causal_design",
+                    "llm_policy_evaluation"]
                    + [f"llm_cat_{c}" for c in llm_code.POLICY_CATEGORIES])
+
+POLICY_EVALUATION_DESIGNS = ("experimental", "quasi_experimental", "structural")
 
 #: Fields a human coder fills in the validation sample, and the coded column each is compared with.
 HUMAN_FIELDS = {
@@ -73,10 +76,15 @@ def _coded_row(rec: dict, n_sent: int, jel_valid: set[str]) -> tuple[dict, list[
         "llm_is_empirical": ans.get("research_type") in ("empirical", "theory_and_empirical"),
         "llm_causal_design": ans.get("empirical_design") in ("experimental",
                                                              "quasi_experimental"),
+        # Estimates a policy's effects, intended or not, with a design that identifies them.
+        "llm_policy_evaluation": (bool(cats.get("causal_effect_of_policy")
+                                       or cats.get("unintended_consequences"))
+                                  and ans.get("empirical_design") in POLICY_EVALUATION_DESIGNS),
         "llm_notes": ans.get("notes"),
         "llm_problems": " | ".join(problems),
         "llm_answered_model": rec.get("answered_model"),
         "llm_route": rec.get("route"),
+        "llm_codebook_version": rec.get("codebook_version"),
     }
     row.update(features.discipline_summary(ans["author_disciplines"]))
     return row, ans["author_disciplines"]
@@ -89,7 +97,7 @@ def coded_columns() -> list[str]:
     return list(row)
 
 
-def assemble(paths: Paths, key: str) -> pd.DataFrame:
+def assemble(paths: Paths, key: str, write: bool = True) -> pd.DataFrame:
     df = llm_code.load_inputs(paths)
     answers = latest_answers(paths, key)
     jel_valid = llm_code.jel_valid_codes(paths)
@@ -120,11 +128,11 @@ def assemble(paths: Paths, key: str) -> pd.DataFrame:
     out = df.drop(columns=["user_message", "custom_id"]).merge(
         coded, on="openalex_id", how="left", validate="one_to_one")
     out["llm_run_key"] = key
-    out["llm_codebook_version"] = settings.LLM_CODEBOOK_VERSION
     out = out.join(_jel_agreement(out))
-    paths.release.mkdir(parents=True, exist_ok=True)
-    out.to_csv(paths.papers_coded, index=False, encoding="utf-8")
-    pd.DataFrame(disc_rows).to_csv(paths.author_disciplines, index=False, encoding="utf-8")
+    if write:
+        paths.release.mkdir(parents=True, exist_ok=True)
+        out.to_csv(paths.papers_coded, index=False, encoding="utf-8")
+        pd.DataFrame(disc_rows).to_csv(paths.author_disciplines, index=False, encoding="utf-8")
     return out
 
 
@@ -224,6 +232,47 @@ def agreement(paths: Paths, human_file, coded: pd.DataFrame | None = None) -> pd
     paths.reports.mkdir(parents=True, exist_ok=True)
     out.to_csv(paths.llm_agreement, index=False, encoding="utf-8")
     return out
+
+
+# -- comparing runs -----------------------------------------------------------
+
+#: Fields compared between two runs (e.g. two codebook versions).
+COMPARE_FIELDS = (["llm_item_type", "llm_research_type", "llm_empirical_design"]
+                  + [f"llm_cat_{c}" for c in llm_code.POLICY_CATEGORIES]
+                  + ["llm_primary_policy_category", "llm_policy_reference",
+                     "llm_policy_evaluation", "llm_jel_primary", "llm_jargon",
+                     "llm_sentence_complexity", "multidisciplinary"])
+
+
+def compare_runs(paths: Paths, old: str, new: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Per-field shares and agreement between two run keys, over papers coded in both.
+
+    Returns (summary by field, one row per paper and field that changed); writes
+    both to reports/.
+    """
+    a = assemble(paths, old, write=False)
+    b = assemble(paths, new, write=False)
+    both = (a["llm_coded_from"] != "not_coded") & (b["llm_coded_from"] != "not_coded")
+    a, b = a[both].set_index("openalex_id"), b[both].set_index("openalex_id")
+    rows, changes = [], []
+    for f in COMPARE_FIELDS:
+        x, y = a[f].map(_norm), b[f].map(_norm)
+        keep = x.notna() & y.notna()
+        row = {"field": f.removeprefix("llm_"), "n": int(keep.sum()),
+               "agreement": round(float((x[keep] == y[keep]).mean()), 3) if keep.any() else None}
+        if a[f].dropna().isin([True, False]).all() and b[f].dropna().isin([True, False]).all():
+            row["share_yes_old"] = round(float((x[keep] == "1").mean()), 3)
+            row["share_yes_new"] = round(float((y[keep] == "1").mean()), 3)
+        rows.append(row)
+        for wid in x[keep].index[x[keep] != y[keep]]:
+            changes.append({"openalex_id": wid, "title": a.at[wid, "title"], "field": f,
+                            "old": a.at[wid, f], "new": b.at[wid, f]})
+    summary, changed = pd.DataFrame(rows), pd.DataFrame(changes)
+    paths.reports.mkdir(parents=True, exist_ok=True)
+    summary.to_csv(paths.reports / f"llm_compare_{old}_{new}.csv", index=False, encoding="utf-8")
+    changed.to_csv(paths.reports / f"llm_compare_{old}_{new}_changes.csv", index=False,
+                   encoding="utf-8")
+    return summary, changed
 
 
 # -- report -------------------------------------------------------------------

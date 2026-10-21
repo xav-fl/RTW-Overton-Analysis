@@ -277,3 +277,41 @@ def test_agreement_and_kappa(project, tmp_path):
     assert out.loc["multidisciplinary", "agreement"] == 0.75
     assert out.loc["research_type", "n"] == 0
     assert llm_assemble.cohen_kappa(["1", "0", "1", "0"], ["1", "0", "1", "0"]) == 1.0
+
+
+def test_policy_evaluation_and_compare_runs(project):
+    df = llm_code.load_inputs(project)
+
+    def answers(unintended_only):
+        def respond(user, n):
+            ans = good_answer(n_authors=n)
+            if unintended_only:
+                ans["policy_categories"]["causal_effect_of_policy"] = False
+                ans["policy_categories"]["unintended_consequences"] = True
+                ans["primary_policy_category"] = "unintended_consequences"
+            return json.dumps(ans), "end_turn"
+        return respond
+
+    for model, unintended_only in (("old-model", False), ("new-model", True)):
+        client = SimpleNamespace(beta=SimpleNamespace(messages=FakeMessages(answers(unintended_only))))
+        llm_code.run_sync(project, llm_code.api_sender(client, "s"), df, model=model,
+                          effort="low", workers=1, log=lambda *_: None)
+    system = llm_code.system_prompt(project)
+    old = llm_code.run_key(system, "old-model", "low")
+    new = llm_code.run_key(system, "new-model", "low")
+
+    coded = llm_assemble.assemble(project, new, write=False).set_index("openalex_id")
+    w1 = coded.loc["https://openalex.org/W1"]
+    assert w1["llm_policy_evaluation"] == True  # noqa: E712 - unintended + quasi-experimental
+    assert pd.isna(coded.loc["https://openalex.org/W2"]["llm_policy_evaluation"])  # title only
+    assert not project.papers_coded.exists()
+
+    summary, changed = llm_assemble.compare_runs(project, old, new)
+    s = summary.set_index("field")
+    assert s.loc["cat_unintended_consequences", "share_yes_old"] == 0.0
+    assert s.loc["cat_unintended_consequences", "share_yes_new"] == 1.0
+    assert s.loc["policy_evaluation", "agreement"] == 1.0
+    assert s.loc["research_type", "agreement"] == 1.0
+    assert set(changed["field"]) == {"llm_cat_causal_effect_of_policy",
+                                     "llm_cat_unintended_consequences",
+                                     "llm_primary_policy_category"}
