@@ -35,8 +35,8 @@ TIMEOUT = 600  # seconds per paper
 #: Messages that mean no later call can succeed either: stop the run, resume later.
 _AUTH_PHRASES = ("not logged in", "/login", "invalid api key", "oauth token",
                  "authentication", "unauthorized")
-_LIMIT_PHRASES = ("usage limit", "limit reached", "out of extra usage", "credit balance",
-                  "hit your limit")
+_LIMIT_PHRASES = ("usage limit", "session limit", "weekly limit", "limit reached",
+                  "out of extra usage", "credit balance", "hit your limit")
 
 
 def find_executable() -> str | None:

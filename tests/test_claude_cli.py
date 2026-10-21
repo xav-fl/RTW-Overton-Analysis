@@ -74,7 +74,8 @@ def test_unparseable_and_refusal(tmp_path):
 
 
 @pytest.mark.parametrize("message", ["Not logged in · Please run /login",
-                                     "Claude usage limit reached. Your limit resets at 5pm"])
+                                     "Claude usage limit reached. Your limit resets at 5pm",
+                                     "You've hit your session limit · resets 9:30pm"])
 def test_sign_in_and_usage_limit_stop_the_run(tmp_path, message):
     out = result_json(None, is_error=True, result=message)
     cc, _ = make(tmp_path, lambda a, s: (1, out, ""))
