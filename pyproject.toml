@@ -1,11 +1,12 @@
 [project]
 name = "overton"
 version = "0.1.0"
-description = "Stage 1 of the Overton analysis: OpenAlex harvest of economics journal articles"
+description = "Overton analysis: OpenAlex harvest of economics journal articles (Stage 1) and LLM-coded paper characteristics (Stage 2)"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.31",
     "pandas>=2.0",
+    "anthropic>=2.0",
 ]
 
 [project.optional-dependencies]

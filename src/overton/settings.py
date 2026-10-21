@@ -25,6 +25,16 @@ DOI_BATCH_SIZE = 25_000
 SAMPLE_SEED = 20261012
 SAMPLE_SIZE = 50
 
+# Stage 2: LLM-coded paper characteristics.
+LLM_MODEL = "claude-opus-5-5"
+LLM_EFFORT = "medium"
+LLM_MAX_TOKENS = 8000
+LLM_CODEBOOK_VERSION = "v0.1"
+LLM_WORKERS = 4                    # concurrent requests in `llm-run`
+LLM_BATCH_CHUNK = 2000             # requests per Message Batch (each carries the ~45 KB system prompt)
+LLM_VALIDATION_SEED = 20261021
+LLM_VALIDATION_SIZE = 100
+
 
 class Paths:
     """Every file location, relative to a root (the repository, or a tmp dir in tests)."""
@@ -48,6 +58,19 @@ class Paths:
         self.works_filtered = self.interim / "works_filtered.csv"
         self.api_usage = self.interim / "api_usage.jsonl"
         self.estimate = self.interim / "harvest_estimate.csv"
+        self.papers_stage1 = self.release / "papers_stage1.csv"
+        self.authorships_stage1 = self.release / "authorships_stage1.csv"
+        self.codebook = self.config / f"llm_codebook_{LLM_CODEBOOK_VERSION}.txt"
+        self.jel_taxonomy = self.config / "jel_taxonomy_compact.txt"
+        self.jel_codes = self.config / "jel_codes_active_20260828.csv"
+        self.llm = self.interim / "llm"
+        self.llm_responses = self.llm / "responses.jsonl"
+        self.llm_batches = self.llm / "batches.jsonl"
+        self.papers_coded = self.release / "papers_coded.csv"
+        self.author_disciplines = self.release / "author_disciplines.csv"
+        self.validation_sample = self.review / "llm_validation_sample.csv"
+        self.llm_agreement = self.reports / "llm_agreement.csv"
+        self.llm_report = self.reports / "LLM_CODING_REPORT.md"
 
     def jy_dir(self, journal_key: str, year: int) -> Path:
         return self.raw / journal_key / str(year)

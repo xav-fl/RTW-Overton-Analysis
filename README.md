@@ -1,4 +1,4 @@
-# Overton Analysis — Stage 1
+# Overton Analysis
 
 Downloads journal articles for 20 economics journals (publication years 2016–2025)
 from the OpenAlex API, separates research papers from comments, corrections,
@@ -47,3 +47,46 @@ the same command after midnight UTC and the harvest resumes where it stopped.
 | `reports/STAGE1_RUN_REPORT.md`, `reports/harvest_report.csv` | run log and per journal-year counts |
 
 `data/` is git-ignored.
+
+# Stage 2 — LLM-coded paper characteristics
+
+Codes each paper in `papers_stage1.csv` with Claude (`claude-opus-5-5`, adaptive
+thinking, effort `medium`): one request per paper, answers constrained to a JSON
+schema. The codebook the model follows is
+[config/llm_codebook_v0.1.txt](config/llm_codebook_v0.1.txt) — a draft for review;
+edit it, bump `LLM_CODEBOOK_VERSION` in `settings.py`, and the next run codes under
+a new run key without overwriting earlier answers. JEL codes come from
+`config/jel_taxonomy_compact.txt` (shared with the speeches project).
+
+| Field (in `papers_coded.csv`) | Source |
+|---|---|
+| `llm_topic_label`, `llm_jel_codes`, `llm_jel_primary`, `llm_jel_primary_major` | model (OpenAlex has no JEL codes) |
+| `jel_codes_author` | parsed from abstracts that list them (2,164 papers); removed before coding, then compared: `llm_jel_overlaps_author` |
+| `llm_cat_*` (8 survey categories, yes/no each), `llm_primary_policy_category` | model |
+| `llm_item_type`, `llm_research_type`, `llm_empirical_design`, `llm_is_review`, `llm_is_empirical`, `llm_causal_design` | model |
+| `llm_policy_reference` (none / existing / proposed / both) | model |
+| `llm_jargon`, `llm_sentence_complexity` (1–5) | model |
+| `abs_flesch_reading_ease`, `abs_flesch_kincaid_grade`, `abs_words_per_sentence`, … | computed in code |
+| `multidisciplinary`, `multidisciplinary_beyond_econ_business`, `n_distinct_disciplines` | model codes each author's department from the affiliation text (`author_disciplines.csv`) |
+
+Papers without a usable abstract (under 30 words; 28% of papers, mostly JAE,
+JFE, JME, JoE) are still sent, for topic, JEL and author disciplines; their
+abstract-based fields are left blank (`llm_coded_from = title_only`).
+
+```powershell
+$env:ANTHROPIC_API_KEY = "<your key>"                      # never commit or print it
+.venv\Scripts\python -m overton llm-sample                 # 100-paper validation sample -> data/review/
+.venv\Scripts\python -m overton llm-run --sample           # code the sample (full price, minutes); prints cost per paper
+.venv\Scripts\python -m overton llm-assemble               # -> data/release/papers_coded.csv, reports/LLM_CODING_REPORT.md
+.venv\Scripts\python -m overton llm-agreement --human data/review/llm_validation_sample_coded.csv
+.venv\Scripts\python -m overton llm-submit --all           # everything else via Message Batches (half price)
+.venv\Scripts\python -m overton llm-collect                # fetch finished batches (re-run until none in progress)
+.venv\Scripts\python -m overton llm-assemble
+```
+
+`llm-run` and `llm-submit` need `--limit N`, `--sample` or `--all`, and skip
+papers already coded under the current run key, so both resume. `--model` and
+`--effort` override the defaults (and change the run key). Every response is kept
+in `data/interim/llm/responses.jsonl`. Requests opt into server-side refusal
+fallbacks (`fallbacks: "default"`); `llm_answered_model` records which model answered.
+Exit code 4 means the API refused further requests (credit, key or permission).

@@ -1,7 +1,10 @@
-"""CLI: python -m overton {resolve,harvest,normalise,filter,report,all}.
+"""CLI: python -m overton {resolve,harvest,normalise,filter,report,all} (Stage 1)
+and {llm-sample,llm-run,llm-submit,llm-collect,llm-assemble,llm-agreement} (Stage 2).
 
 Exit codes: 0 ok, 2 a gate failed, 3 OpenAlex budget or rate limit reached
-(re-run the same command after midnight UTC; the harvest resumes).
+(re-run the same command after midnight UTC; the harvest resumes), 4 the
+Anthropic API refused further requests (credit, key or permission; re-run
+once fixed and the coding resumes).
 """
 from __future__ import annotations
 
@@ -12,7 +15,7 @@ import pandas as pd
 
 from . import client as cl
 from . import filter as flt
-from . import harvest, normalise, report, resolve, settings
+from . import harvest, llm_assemble, llm_code, normalise, report, resolve, settings
 from .settings import Paths
 
 
@@ -140,6 +143,101 @@ def cmd_report(paths: Paths) -> None:
           f"{paths.harvest_report.relative_to(paths.root)}, data/release/, data/review/")
 
 
+def _llm_selection(paths: Paths, args, key: str) -> pd.DataFrame:
+    df = llm_code.load_inputs(paths)
+    done = llm_code.Store(paths).done(key) | llm_code.pending_ids(paths, key)
+    ids = None
+    if args.sample:
+        if not paths.validation_sample.exists():
+            raise GateFailed("llm", ["no validation sample; run `llm-sample` first"])
+        ids = set(pd.read_csv(paths.validation_sample, dtype=str)["custom_id"])
+    elif not (args.limit or args.all):
+        raise GateFailed("llm", ["say which papers: --limit N, --sample, or --all"])
+    todo = llm_code.select(df, done, args.limit, ids)
+    print(f"  run key {key}: {len(done)} papers already coded or pending; {len(todo)} to send")
+    return todo
+
+
+def _estimate(n_todo: int, paths: Paths, key: str, batch: bool) -> None:
+    recs = [r for r in llm_code.Store(paths).records() if r["run_key"] == key]
+    use = llm_code.usage_summary(recs)
+    if use["usd_per_call"]:
+        per = use["usd_per_call"] * (llm_code.BATCH_DISCOUNT if batch else 1.0)
+        print(f"  estimated cost from {use['calls']} earlier calls: "
+              f"~${per * n_todo:,.2f} for {n_todo} papers")
+
+
+def cmd_llm_sample(paths: Paths) -> None:
+    print("== Stage 2: validation sample")
+    s = llm_assemble.validation_sample(paths)
+    print(f"  wrote {len(s)} papers to {paths.validation_sample.relative_to(paths.root)}")
+
+
+def cmd_llm_run(paths: Paths, args) -> None:
+    print(f"== Stage 2: code papers ({args.model}, effort {args.effort})")
+    key = llm_code.run_key(llm_code.system_prompt(paths), args.model, args.effort)
+    todo = _llm_selection(paths, args, key)
+    if todo.empty:
+        return
+    _estimate(len(todo), paths, key, batch=False)
+    recs = llm_code.run_sync(paths, llm_code.make_client(), todo, model=args.model,
+                             effort=args.effort, workers=args.workers)
+    status = pd.Series([r["status"] for r in recs]).value_counts().to_dict()
+    use = llm_code.usage_summary(recs)
+    print(f"  responses: {status}")
+    print(f"  usage: {use['input_tokens']} input, {use['cache_read_input_tokens']} cache-read, "
+          f"{use['cache_creation_input_tokens']} cache-write, {use['output_tokens']} output "
+          f"tokens; ${use['usd']} (${use['usd_per_call']} per paper)")
+    if use["usd_per_call"]:
+        n_all = len(llm_code.load_inputs(paths))
+        print(f"  at this rate all {n_all} papers: ~${use['usd_per_call'] * n_all:,.0f} "
+              f"(sync) or ~${use['usd_per_call'] * n_all * llm_code.BATCH_DISCOUNT:,.0f} (batch)")
+
+
+def cmd_llm_submit(paths: Paths, args) -> None:
+    print(f"== Stage 2: submit batches ({args.model}, effort {args.effort})")
+    key = llm_code.run_key(llm_code.system_prompt(paths), args.model, args.effort)
+    todo = _llm_selection(paths, args, key)
+    if todo.empty:
+        return
+    _estimate(len(todo), paths, key, batch=True)
+    ids = llm_code.submit_batches(paths, llm_code.make_client(), todo, model=args.model,
+                                  effort=args.effort)
+    print(f"  {len(ids)} batch(es) submitted; run `llm-collect` later (results within 24 hours)")
+
+
+def cmd_llm_collect(paths: Paths) -> None:
+    print("== Stage 2: collect batches")
+    c = llm_code.collect_batches(paths, llm_code.make_client())
+    print(f"  collected {c['ended']} batch(es), {c['records']} results; "
+          f"{c['in_progress']} still in progress")
+
+
+def cmd_llm_assemble(paths: Paths, args) -> None:
+    print("== Stage 2: assemble")
+    key = args.run_key or llm_assemble.current_run_key(paths, args.model, args.effort)
+    coded = llm_assemble.assemble(paths, key)
+    llm_assemble.report(paths, coded, key)
+    n = (coded["llm_coded_from"] != "not_coded").sum()
+    print(f"  run key {key}: {n} of {len(coded)} papers coded")
+    print(f"  wrote {paths.papers_coded.relative_to(paths.root)}, "
+          f"{paths.author_disciplines.relative_to(paths.root)}, "
+          f"{paths.llm_report.relative_to(paths.root)}")
+
+
+def cmd_llm_agreement(paths: Paths, human: str) -> None:
+    print("== Stage 2: agreement with human coding")
+    out = llm_assemble.agreement(paths, human)
+    print(out.to_string(index=False))
+    print(f"  wrote {paths.llm_agreement.relative_to(paths.root)}")
+
+
+def _llm_args(p) -> None:
+    p.add_argument("--model", default=settings.LLM_MODEL)
+    p.add_argument("--effort", default=settings.LLM_EFFORT,
+                   choices=["low", "medium", "high", "xhigh", "max"])
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="overton")
     sub = p.add_subparsers(dest="command", required=True)
@@ -150,6 +248,22 @@ def main(argv=None) -> int:
     h.add_argument("--years", help="e.g. 2016-2025 or 2020")
     for name in ("normalise", "filter", "report", "all"):
         sub.add_parser(name)
+    sub.add_parser("llm-sample")
+    for name in ("llm-run", "llm-submit"):
+        q = sub.add_parser(name)
+        _llm_args(q)
+        g = q.add_mutually_exclusive_group()
+        g.add_argument("--limit", type=int, help="code at most N not-yet-coded papers")
+        g.add_argument("--sample", action="store_true", help="code the validation sample")
+        g.add_argument("--all", action="store_true", help="code every not-yet-coded paper")
+        if name == "llm-run":
+            q.add_argument("--workers", type=int, default=settings.LLM_WORKERS)
+    sub.add_parser("llm-collect")
+    q = sub.add_parser("llm-assemble")
+    _llm_args(q)
+    q.add_argument("--run-key", help="assemble this run key instead of the current settings'")
+    q = sub.add_parser("llm-agreement")
+    q.add_argument("--human", required=True, help="filled-in copy of the validation sample")
     args = p.parse_args(argv)
     paths = Paths()
     try:
@@ -171,6 +285,21 @@ def main(argv=None) -> int:
             cmd_normalise(paths)
             cmd_filter(paths)
             cmd_report(paths)
+        elif args.command == "llm-sample":
+            cmd_llm_sample(paths)
+        elif args.command == "llm-run":
+            cmd_llm_run(paths, args)
+        elif args.command == "llm-submit":
+            cmd_llm_submit(paths, args)
+        elif args.command == "llm-collect":
+            cmd_llm_collect(paths)
+        elif args.command == "llm-assemble":
+            cmd_llm_assemble(paths, args)
+        elif args.command == "llm-agreement":
+            cmd_llm_agreement(paths, args.human)
+    except llm_code.ProviderStopped as exc:
+        print(f"\nSTOPPED: {exc}", file=sys.stderr)
+        return 4
     except cl.BudgetExhausted as exc:
         print(f"\nSTOPPED: {exc}", file=sys.stderr)
         return 3
