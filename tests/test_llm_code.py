@@ -197,7 +197,8 @@ def fake_answers(user, n):
 def test_run_resume_and_assemble(project):
     df = llm_code.load_inputs(project)
     client = SimpleNamespace(beta=SimpleNamespace(messages=FakeMessages(fake_answers)))
-    recs = llm_code.run_sync(project, client, df, model="claude-opus-5-5", effort="medium",
+    send = llm_code.api_sender(client, llm_code.system_prompt(project))
+    recs = llm_code.run_sync(project, send, df, model="claude-opus-5-5", effort="medium",
                              workers=2, log=lambda *_: None)
     assert sorted(r["status"] for r in recs) == ["ok", "ok", "parse_error"]
     betas, params = client.beta.messages.calls[0]
@@ -242,7 +243,8 @@ def test_provider_stop_halts_run(project):
     df = llm_code.load_inputs(project)
     client = SimpleNamespace(beta=SimpleNamespace(messages=Broke()))
     with pytest.raises(llm_code.ProviderStopped, match="out of credit"):
-        llm_code.run_sync(project, client, df, model="m", effort="low", log=lambda *_: None)
+        llm_code.run_sync(project, llm_code.api_sender(client, "sys"), df, model="m",
+                          effort="low", log=lambda *_: None)
     assert llm_code.Store(project).records() == []
 
 

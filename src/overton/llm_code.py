@@ -1,4 +1,4 @@
-"""Stage 2: code paper characteristics with Claude (network: Anthropic API).
+"""Stage 2: code paper characteristics with Claude (network: Anthropic API or Claude Code).
 
 One request per paper. The system prompt is the codebook plus the JEL taxonomy,
 identical on every request so it is cached; the user message is the paper
@@ -8,11 +8,13 @@ Every response is appended to data/interim/llm/responses.jsonl with its run
 key (a hash of the prompt, schema, model and effort). Re-running skips papers
 that already have a valid answer under the same run key, so an interrupted run
 resumes, and changing the codebook starts a fresh set without losing the old
-one. Two routes write the same records: `run_sync` (concurrent requests, full
-price) and `submit_batches` / `collect_batches` (Message Batches, half price,
-results within 24 hours).
+one. Three routes write the same records: `run_sync` with `api_sender`
+(concurrent API requests, full price), `run_sync` with claude_cli.ClaudeCode
+(`claude -p` under the user's Claude sign-in, no API key), and
+`submit_batches` / `collect_batches` (Message Batches, half price, results
+within 24 hours).
 
-The key is read from ANTHROPIC_API_KEY (or any credential the SDK resolves).
+The API routes read ANTHROPIC_API_KEY (or any credential the SDK resolves).
 """
 from __future__ import annotations
 
@@ -286,16 +288,20 @@ def cost_usd(usage: dict, model: str, batch: bool) -> float | None:
 
 
 def usage_summary(records: Iterable[dict]) -> dict:
+    """Token totals and cost at API prices. Claude Code calls are covered by the
+    sign-in's plan, not billed per token, so `usd` for them is only the API
+    equivalent; `claude_code_calls` says how many there were."""
     tot = dict.fromkeys(USAGE_FIELDS, 0)
-    usd, n = 0.0, 0
+    usd, n, n_cc = 0.0, 0, 0
     for r in records:
         n += 1
+        n_cc += r["route"] == "claude-code"
         for f in USAGE_FIELDS:
             tot[f] += r["usage"].get(f, 0)
         c = cost_usd(r["usage"], r["answered_model"] or r["requested_model"],
                      r["route"] == "batch")
         usd += c or 0.0
-    return {"calls": n, **tot, "usd": round(usd, 4),
+    return {"calls": n, "claude_code_calls": n_cc, **tot, "usd": round(usd, 4),
             "usd_per_call": round(usd / n, 5) if n else None}
 
 
@@ -335,11 +341,32 @@ def select(df: pd.DataFrame, done: set[str], limit: int | None,
     return todo.head(limit) if limit else todo
 
 
-def run_sync(paths: Paths, client, df: pd.DataFrame, *, model: str, effort: str,
+def api_sender(client, system: str):
+    """A `send` for run_sync that answers through the Messages API."""
+
+    def send(row: dict, key: str, model: str, effort: str) -> dict:
+        params = request_params(system, row["user_message"], model, effort)
+        try:
+            msg = client.beta.messages.create(betas=[FALLBACK_BETA], **params)
+        except Exception as exc:  # noqa: BLE001 - classified below, then recorded
+            reason = stop_reason(exc)
+            if reason:
+                raise ProviderStopped(f"{reason}: {exc}") from exc
+            return error_record(row["custom_id"], key, model, effort, "sync",
+                                f"{type(exc).__name__}: {exc}")
+        return record_from_message(msg, row["custom_id"], key, model, effort, "sync")
+
+    return send
+
+
+def run_sync(paths: Paths, send, df: pd.DataFrame, *, model: str, effort: str,
              workers: int = settings.LLM_WORKERS, log=print) -> list[dict]:
-    """Send one request per row of df concurrently; returns the records written."""
-    system = system_prompt(paths)
-    key = run_key(system, model, effort)
+    """Code each row of df concurrently with `send(row, key, model, effort) -> record`.
+
+    `send` is api_sender(...) or a claude_cli.ClaudeCode; it raises ProviderStopped
+    when no further call can succeed, which stops the run. Returns the records written.
+    """
+    key = run_key(system_prompt(paths), model, effort)
     store = Store(paths)
     written: list[dict] = []
     stopped: list[str] = []
@@ -347,18 +374,11 @@ def run_sync(paths: Paths, client, df: pd.DataFrame, *, model: str, effort: str,
     def one(row: dict) -> dict:
         if stopped:
             return {}
-        params = request_params(system, row["user_message"], model, effort)
         try:
-            msg = client.beta.messages.create(betas=[FALLBACK_BETA], **params)
-        except Exception as exc:  # noqa: BLE001 - classified below, then recorded
-            reason = stop_reason(exc)
-            if reason:
-                stopped.append(f"{reason}: {exc}")
-                return {}
-            rec = error_record(row["custom_id"], key, model, effort, "sync",
-                               f"{type(exc).__name__}: {exc}")
-        else:
-            rec = record_from_message(msg, row["custom_id"], key, model, effort, "sync")
+            rec = send(row, key, model, effort)
+        except ProviderStopped as exc:
+            stopped.append(str(exc))
+            return {}
         store.append(rec)
         return rec
 

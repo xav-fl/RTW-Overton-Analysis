@@ -3,8 +3,8 @@ and {llm-sample,llm-run,llm-submit,llm-collect,llm-assemble,llm-agreement} (Stag
 
 Exit codes: 0 ok, 2 a gate failed, 3 OpenAlex budget or rate limit reached
 (re-run the same command after midnight UTC; the harvest resumes), 4 the
-Anthropic API refused further requests (credit, key or permission; re-run
-once fixed and the coding resumes).
+Anthropic API or Claude Code refused further requests (credit, key, sign-in or
+usage limit; re-run once fixed and the coding resumes).
 """
 from __future__ import annotations
 
@@ -15,7 +15,8 @@ import pandas as pd
 
 from . import client as cl
 from . import filter as flt
-from . import harvest, llm_assemble, llm_code, normalise, report, resolve, settings
+from . import (claude_cli, harvest, llm_assemble, llm_code, normalise, report, resolve,
+               settings)
 from .settings import Paths
 
 
@@ -174,21 +175,35 @@ def cmd_llm_sample(paths: Paths) -> None:
 
 
 def cmd_llm_run(paths: Paths, args) -> None:
-    print(f"== Stage 2: code papers ({args.model}, effort {args.effort})")
-    key = llm_code.run_key(llm_code.system_prompt(paths), args.model, args.effort)
+    print(f"== Stage 2: code papers via {args.route} ({args.model}, effort {args.effort})")
+    system = llm_code.system_prompt(paths)
+    key = llm_code.run_key(system, args.model, args.effort)
     todo = _llm_selection(paths, args, key)
     if todo.empty:
         return
-    _estimate(len(todo), paths, key, batch=False)
-    recs = llm_code.run_sync(paths, llm_code.make_client(), todo, model=args.model,
-                             effort=args.effort, workers=args.workers)
+    if args.route == "api":
+        _estimate(len(todo), paths, key, batch=False)
+        send = llm_code.api_sender(llm_code.make_client(), system)
+    else:
+        send = claude_cli.ClaudeCode(system)
+        print(f"  Claude Code: {send.executable}")
+    try:
+        recs = llm_code.run_sync(paths, send, todo, model=args.model,
+                                 effort=args.effort, workers=args.workers)
+    finally:
+        if args.route == "claude-code":
+            claude_cli.kill_running()
+            send.close()
     status = pd.Series([r["status"] for r in recs]).value_counts().to_dict()
     use = llm_code.usage_summary(recs)
     print(f"  responses: {status}")
     print(f"  usage: {use['input_tokens']} input, {use['cache_read_input_tokens']} cache-read, "
           f"{use['cache_creation_input_tokens']} cache-write, {use['output_tokens']} output "
-          f"tokens; ${use['usd']} (${use['usd_per_call']} per paper)")
-    if use["usd_per_call"]:
+          f"tokens; ${use['usd']} at API prices (${use['usd_per_call']} per paper)")
+    if args.route == "claude-code":
+        print("  (Claude Code calls are covered by your Claude plan's usage limits, "
+              "not billed per token)")
+    elif use["usd_per_call"]:
         n_all = len(llm_code.load_inputs(paths))
         print(f"  at this rate all {n_all} papers: ~${use['usd_per_call'] * n_all:,.0f} "
               f"(sync) or ~${use['usd_per_call'] * n_all * llm_code.BATCH_DISCOUNT:,.0f} (batch)")
@@ -258,6 +273,9 @@ def main(argv=None) -> int:
         g.add_argument("--all", action="store_true", help="code every not-yet-coded paper")
         if name == "llm-run":
             q.add_argument("--workers", type=int, default=settings.LLM_WORKERS)
+            q.add_argument("--route", choices=["claude-code", "api"], default="claude-code",
+                           help="claude-code: your Claude sign-in via `claude -p` (default); "
+                                "api: ANTHROPIC_API_KEY")
     sub.add_parser("llm-collect")
     q = sub.add_parser("llm-assemble")
     _llm_args(q)

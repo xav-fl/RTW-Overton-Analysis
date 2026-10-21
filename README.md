@@ -73,20 +73,47 @@ Papers without a usable abstract (under 30 words; 28% of papers, mostly JAE,
 JFE, JME, JoE) are still sent, for topic, JEL and author disciplines; their
 abstract-based fields are left blank (`llm_coded_from = title_only`).
 
+### Through Claude Code (default; no API key)
+
+`llm-run` calls the Claude Code CLI (`claude -p`) under your own Claude sign-in,
+in the same way the speeches bundle calls `codex exec`. Each call runs from an
+empty temporary folder with no tools, MCP servers, settings files or saved
+session, takes the codebook as its whole system prompt, and must answer in the
+same JSON schema as the API route. The CLI is found on PATH, or else as the copy
+the Claude desktop app installs; set `CLAUDE_CODE_EXE` to point at another.
+Sign in once (the CLI keeps its own sign-in, separate from the desktop app's):
+
 ```powershell
-$env:ANTHROPIC_API_KEY = "<your key>"                      # never commit or print it
+claude auth login          # or: & "$env:LOCALAPPDATA\Claude-Data\...\claude.exe" auth login
 .venv\Scripts\python -m overton llm-sample                 # 100-paper validation sample -> data/review/
-.venv\Scripts\python -m overton llm-run --sample           # code the sample (full price, minutes); prints cost per paper
+.venv\Scripts\python -m overton llm-run --sample           # code the sample
 .venv\Scripts\python -m overton llm-assemble               # -> data/release/papers_coded.csv, reports/LLM_CODING_REPORT.md
 .venv\Scripts\python -m overton llm-agreement --human data/review/llm_validation_sample_coded.csv
-.venv\Scripts\python -m overton llm-submit --all           # everything else via Message Batches (half price)
-.venv\Scripts\python -m overton llm-collect                # fetch finished batches (re-run until none in progress)
+.venv\Scripts\python -m overton llm-run --all              # everything else (resumes if stopped)
 .venv\Scripts\python -m overton llm-assemble
 ```
 
+Calls count against your Claude plan's usage limits rather than being billed per
+token; the token counts and API-price equivalent are still recorded. On a usage
+limit or sign-in failure the run stops (exit code 4) and `llm-run --all` resumes
+where it left off. `--workers` (default 4) sets how many calls run at once.
+
+### Through the API
+
+```powershell
+$env:ANTHROPIC_API_KEY = "<your key>"                      # never commit or print it
+.venv\Scripts\python -m overton llm-run --route api --sample   # full price; prints cost per paper
+.venv\Scripts\python -m overton llm-submit --all           # Message Batches (half price)
+.venv\Scripts\python -m overton llm-collect                # fetch finished batches (re-run until none in progress)
+```
+
+API requests opt into server-side refusal fallbacks (`fallbacks: "default"`),
+which the Claude Code route does not have; `llm_answered_model` records which
+model answered and `llm_route` which route.
+
+Both routes write the same records and share a run key, so they can be mixed.
 `llm-run` and `llm-submit` need `--limit N`, `--sample` or `--all`, and skip
 papers already coded under the current run key, so both resume. `--model` and
 `--effort` override the defaults (and change the run key). Every response is kept
-in `data/interim/llm/responses.jsonl`. Requests opt into server-side refusal
-fallbacks (`fallbacks: "default"`); `llm_answered_model` records which model answered.
-Exit code 4 means the API refused further requests (credit, key or permission).
+in `data/interim/llm/responses.jsonl`. Exit code 4 means no further request can
+succeed (credit, key, sign-in or usage limit).
