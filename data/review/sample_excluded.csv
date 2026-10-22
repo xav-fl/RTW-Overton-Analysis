@@ -1,0 +1,51 @@
+﻿exclusion_reason,journal_key,year,title,openalex_type,page_count,doi,review_flags
+E_ADMIN,aea_pp,2020,"Minutes of the Meeting of the Executive Committee Chicago, IL, April 26, 2019",article,7,10.1257/pandp.110.643,F_NO_AUTHORS
+E_BOOKS,jel,2021,Annotated Listing of New Books,article,75,10.1257/jel.59.1.297,F_NO_AUTHORS
+E_COMMENT,jme,2018,"Comment on “Should we fear the robot revolution? (The correct answer is yes)” by Andrew Berg, Ed Buffie, and Felipe Zanna",article,4,10.1016/j.jmoneco.2018.05.012,
+E_CORRECTION,rfs,2017,Errata,article,1,10.1093/rfs/hhx017,F_SHORT;F_NO_AUTHORS
+E_FRONTMATTER,rfs,2016,Cover,article,,10.1093/rfs/hhv080,F_NO_AUTHORS
+E_MISDATED,aer,2016,Implicit Contracts in the Absence of Enforcement: Note,article,2,,F_SHORT
+E_NONENGLISH_NO_DOI,jfe,2016,近赤外分光分析法を用いた鉄鋼酸洗液の高速酸濃度分析 (分析・解析小特集号),article,4,,F_NO_ABSTRACT_NO_DOI
+E_READING,jep,2021,Recommendations for Further Reading,article,8,10.1257/jep.35.1.249,
+E_TYPE:book-review,jel,2023,Book Review: Voting over a Distributed Ledger: An Interdisciplinary Perspective,book-review,3,10.1257/jel.61.1.295.r1,F_SHORT
+E_TYPE:editorial,jme,2025,Discussion of “Shaping Inequality and Intergenerational Persistence of Poverty: Free college or better schools”,editorial,1,10.1016/j.jmoneco.2025.103744,F_SHORT
+E_TYPE:erratum,jeea,2021,"Correction to: Accounting for Wealth-Inequality Dynamics: Methods, Estimates, and Simulations for France",erratum,1,10.1093/jeea/jvaa056,F_SHORT
+E_TYPE:letter,ecta,2020,Reply to “Rational Bubbles in UK Housing Markets”,letter,4,10.3982/ecta18174,
+E_TYPE:other,joe,2016,Obituary,other,,10.1016/s0304-4076(16)30130-0,
+E_TYPE:paratext,jae,2017,Editorial Board,paratext,,10.1016/s0165-4101(17)30023-x,F_NO_AUTHORS
+E_TYPE:retraction,aer,2023,Retraction of “Dividend Taxes and the Allocation of Capital”,retraction,2,10.1257/aer.113.7.2053,F_SHORT;F_RETRACTED
+E_ADMIN,jf,2021,ANNOUNCEMENTS,article,1,10.1111/jofi.13014,F_SHORT;F_NO_AUTHORS
+E_BOOKS,jel,2017,Annotated Listing of New Books,article,116,10.1257/jel.55.1.234,F_NO_AUTHORS
+E_COMMENT,aer,2020,Detecting Potential Overbilling in Medicare Reimbursement via Hours Worked: Comment,article,13,10.1257/aer.20180812,
+E_CORRECTION,restat,2019,Incentives to Identify: Errata,article,1,10.1162/rest_x_00869,F_SHORT
+E_FRONTMATTER,rfs,2016,Cover,article,,10.1093/rfs/hhv084,F_NO_AUTHORS
+E_MISDATED,jel,2016,Cost-Benefit Analysis and the Theory of Public Finance,article,10,,
+E_NONENGLISH_NO_DOI,jfe,2016,水生生物を用いたスラグの環境影響評価技術 (分析・解析小特集号),article,5,,F_NO_ABSTRACT_NO_DOI
+E_READING,jep,2017,Recommendations for Further Reading,article,8,10.1257/jep.31.2.257,
+E_TYPE:book-review,jel,2016,Book Reviews,book-review,3,10.1257/jel.54.4.1390.r11,F_SHORT;F_NO_AUTHORS
+E_TYPE:editorial,joe,2018,Editorial introduction on complexity and big data in economics and finance: Recent developments from a Bayesian perspective,editorial,3,10.1016/j.jeconom.2018.11.001,F_SHORT
+E_TYPE:erratum,rfs,2018,Corrigendum,erratum,1,10.1093/rfs/hhy016,F_SHORT;F_NO_AUTHORS
+E_TYPE:letter,ecta,2020,Reply to: Comments on “ On the Informativeness of Descriptive Statistics for Structural Estimates”,letter,3,10.3982/ecta18786,F_SHORT
+E_TYPE:other,rfs,2021,In Memoriam: Craig W. Holden,other,1,10.1093/rfs/hhab057,F_SHORT;F_NO_AUTHORS
+E_TYPE:paratext,joe,2018,Editorial Board,paratext,,10.1016/s0304-4076(17)30250-6,F_NO_AUTHORS
+E_TYPE:retraction,rfs,2025,Retraction of: Mortgage Finance and Climate Change: Securitization Dynamics in the Aftermath of Natural Disasters,retraction,1,10.1093/rfs/hhaf003,F_SHORT;F_NO_AUTHORS
+E_ADMIN,jf,2016,ANNOUNCEMENTS,article,1,10.1111/jofi.12427,F_SHORT;F_NO_AUTHORS
+E_BOOKS,jel,2018,Annotated Listing of New Books,article,52,10.1257/jel.56.4.1604,F_NO_AUTHORS
+E_COMMENT,ecta,2024,"A Comment on: “Presidential Address: Economics and Measurement: New Measures to Model Decision Making” by Ingvild Almås, Orazio Attanasio, and Pamela Jervis",article,4,10.3982/ecta22781,
+E_CORRECTION,rfs,2017,Errata,article,1,10.1093/rfs/hhx013,F_SHORT;F_NO_AUTHORS
+E_FRONTMATTER,rfs,2016,Cover,article,,10.1093/rfs/hhv100,F_NO_AUTHORS
+E_MISDATED,aer,2016,On Taxation and the Control of Externalities,article,16,,F_NO_ABSTRACT_NO_DOI
+E_NONENGLISH_NO_DOI,jfe,2016,高機能を発現する複相鋼板の組織解析技術 (分析・解析小特集号),article,4,,F_NO_ABSTRACT_NO_DOI
+E_READING,jep,2018,Recommendations for Further Reading,article,8,10.1257/jep.32.1.211,
+E_TYPE:book-review,jel,2021,Book Reviews,book-review,4,10.1257/jel.59.1.285.r4,F_NO_AUTHORS
+E_TYPE:editorial,jae,2019,Discussion of “Modeling the determinants of meet-or-just-beat behavior in distribution discontinuity tests”,editorial,1,10.1016/j.jacceco.2019.101263,F_SHORT
+E_TYPE:erratum,rfs,2024,Correction to: A Dynamic Theory of Lending Standards,erratum,2,10.1093/rfs/hhae022,F_SHORT;F_NO_AUTHORS
+E_TYPE:letter,jep,2016,Correspondence,letter,2,10.1257/jep.30.1.247,F_SHORT
+E_TYPE:other,jpe,2025,"In Memoriam: Robert E. Lucas Jr. (September 15, 1937–May 15, 2023)",other,1,10.1086/738004,F_SHORT;F_NO_AUTHORS
+E_TYPE:paratext,jfe,2022,Editorial Board,paratext,,10.1016/s0304-405x(22)00066-6,F_NO_AUTHORS
+E_TYPE:retraction,restud,2023,Retraction of: Growing up in a Recession,retraction,1,10.1093/restud/rdac085,F_SHORT;F_NO_AUTHORS;F_RETRACTED
+E_ADMIN,aea_pp,2024,Report of the Committee on the Status of LGBTQ+ Individuals in the Economics Profession,article,2,10.1257/pandp.114.829,F_SHORT
+E_BOOKS,jel,2016,Annotated Listing of New Books,article,146,10.1257/jel.54.3.959,F_NO_AUTHORS
+E_COMMENT,aer,2016,Marx and Malthusianism: Reply,article,3,,F_SHORT;F_NO_ABSTRACT_NO_DOI
+E_CORRECTION,rfs,2024,Expression of Concern: Mortgage Finance and Climate Change: Securitization Dynamics in the Aftermath of Natural Disasters,article,,10.1093/rfs/hhae050,F_NO_AUTHORS
+E_FRONTMATTER,rfs,2016,Cover,article,,10.1093/rfs/hhv096,F_NO_AUTHORS

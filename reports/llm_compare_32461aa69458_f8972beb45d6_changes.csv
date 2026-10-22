@@ -1,0 +1,126 @@
+openalex_id,title,field,old,new
+https://openalex.org/W3175233967,Inferring Expectations from Observables: Evidence from the Housing Market,llm_research_type,empirical,theory_and_empirical
+https://openalex.org/W4394675083,Interview Sequences and the Formation of Subjective Assessments,llm_research_type,theory_and_empirical,empirical
+https://openalex.org/W3123887647,The Globalization of Postsecondary Education: The Role of International Students in the US Higher Education System,llm_empirical_design,descriptive_or_correlational,not_empirical
+https://openalex.org/W4410884798,The End of an Impossible Choice: Removing Infertility as a Prerequisite for Legal Gender Recognition,llm_empirical_design,quasi_experimental,descriptive_or_correlational
+https://openalex.org/W3148303949,Firm and Worker Dynamics in a Frictional Labor Market,llm_empirical_design,structural,forecasting_or_calibration
+https://openalex.org/W3174918233,"Recruitment, Effort, and Retention Effects of Performance Contracts for Civil Servants: Experimental Evidence from Rwandan Primary Schools",llm_cat_proposes_novel_policy,False,True
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_cat_proposes_novel_policy,True,False
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_cat_proposes_novel_policy,True,False
+https://openalex.org/W4319788553,Do Municipal Bond Dealers Give Their Customers “Fair and Reasonable” Pricing?,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W4226179405,Mental Health Costs of Lockdowns: Evidence from Age-Specific Curfews in Turkey,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W3171997338,Making a NARCO: Childhood Exposure to Illegal Labor Markets and Criminal Life Paths,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W3122831527,Distortion by Audit: Evidence from Public Procurement,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W4410884798,The End of an Impossible Choice: Removing Infertility as a Prerequisite for Legal Gender Recognition,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_cat_causal_effect_of_policy,True,False
+https://openalex.org/W4319041730,Firm-Embedded Productivity and Cross-Country Income Differences,llm_cat_descriptive_fact,True,False
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_cat_descriptive_fact,True,False
+https://openalex.org/W4224235032,Can You Move to Opportunity? Evidence from the Great Migration,llm_cat_descriptive_fact,True,False
+https://openalex.org/W2369985350,Gender Diversity on Corporate Boards: Do Women Contribute Unique Skills?,llm_cat_descriptive_fact,True,False
+https://openalex.org/W2990081303,"The Violent Legacy of Conflict: Evidence on Asylum Seekers, Crime, and Public Policy in Switzerland",llm_cat_descriptive_fact,False,True
+https://openalex.org/W4394595298,The Value of Student Debt Relief and the Role of Administrative Barriers: Evidence from the Teacher Loan Forgiveness Program,llm_cat_descriptive_fact,False,True
+https://openalex.org/W4319338161,"Low-Quality Seeds, Labor Supply, and Economic Returns: Experimental Evidence from Tanzania",llm_cat_descriptive_fact,True,False
+https://openalex.org/W2549907004,Private Equity Buyouts and Workplace Safety,llm_cat_descriptive_fact,True,False
+https://openalex.org/W4413977171,Unconventional Monetary Policy Spillovers and the (In)convenience of Treasuries,llm_cat_descriptive_fact,True,False
+https://openalex.org/W3124131857,The Retention Effects of Unvested Equity: Evidence from Accelerated Option Vesting,llm_cat_unintended_consequences,True,False
+https://openalex.org/W4221077871,The Consequences of Letter Grades for Labor Market Outcomes and Student Behavior,llm_cat_unintended_consequences,True,False
+https://openalex.org/W2896096066,In Vaccines We Trust? The Effects of the CIA’s Vaccine Ruse on Immunization in Pakistan,llm_cat_unintended_consequences,True,False
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_cat_unintended_consequences,True,False
+https://openalex.org/W3159672012,Colluding Against Environmental Regulation,llm_cat_unintended_consequences,True,False
+https://openalex.org/W3125175136,Accounting for Business Income in Measuring Top Income Shares: Integrated Accrual Approach Using Individual and Firm Data from Norway,llm_cat_unintended_consequences,True,False
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_cat_unintended_consequences,True,False
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_cat_unintended_consequences,True,False
+https://openalex.org/W4409752777,Dynamic Banking and the Value of Deposits,llm_cat_unintended_consequences,True,False
+https://openalex.org/W4401376832,The credit supply channel of monetary policy tightening and its distributional impacts,llm_cat_unintended_consequences,True,False
+https://openalex.org/W4409727497,Depressed Peers in Early Parenthood,llm_cat_unintended_consequences,True,False
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_cat_predicts_effects_with_models,True,False
+https://openalex.org/W3014899013,Dynamic Debt Deleveraging and Optimal Monetary Policy,llm_cat_cost_benefit_or_welfare,True,False
+https://openalex.org/W3159672012,Colluding Against Environmental Regulation,llm_cat_cost_benefit_or_welfare,True,False
+https://openalex.org/W4394595298,The Value of Student Debt Relief and the Role of Administrative Barriers: Evidence from the Teacher Loan Forgiveness Program,llm_cat_cost_benefit_or_welfare,True,False
+https://openalex.org/W3124131857,The Retention Effects of Unvested Equity: Evidence from Accelerated Option Vesting,llm_cat_identifies_mechanisms,True,False
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_cat_identifies_mechanisms,True,False
+https://openalex.org/W3125175136,Accounting for Business Income in Measuring Top Income Shares: Integrated Accrual Approach Using Individual and Firm Data from Norway,llm_cat_identifies_mechanisms,True,False
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_cat_identifies_mechanisms,True,False
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_cat_identifies_mechanisms,True,False
+https://openalex.org/W2562333936,Fertility Restrictions and Life Cycle Outcomes: Evidence from the One-Child Policy in China,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W2592685220,Modern Family? Paternity Leave and Marital Stability,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W2896096066,In Vaccines We Trust? The Effects of the CIA’s Vaccine Ruse on Immunization in Pakistan,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W3205436595,The Economics of the COVID-19 Pandemic in Poor Countries,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W3125175136,Accounting for Business Income in Measuring Top Income Shares: Integrated Accrual Approach Using Individual and Firm Data from Norway,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W4416863109,The Economics of Infectious Diseases,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W3125582937,Freeze! Financial Sanctions and Bank Responses,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_cat_impacts_on_specific_groups,True,False
+https://openalex.org/W3124131857,The Retention Effects of Unvested Equity: Evidence from Accelerated Option Vesting,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W4221077871,The Consequences of Letter Grades for Labor Market Outcomes and Student Behavior,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W4319041730,Firm-Embedded Productivity and Cross-Country Income Differences,llm_primary_policy_category,descriptive_fact,none
+https://openalex.org/W2896096066,In Vaccines We Trust? The Effects of the CIA’s Vaccine Ruse on Immunization in Pakistan,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W4224235032,Can You Move to Opportunity? Evidence from the Great Migration,llm_primary_policy_category,descriptive_fact,none
+https://openalex.org/W2369985350,Gender Diversity on Corporate Boards: Do Women Contribute Unique Skills?,llm_primary_policy_category,descriptive_fact,none
+https://openalex.org/W3159672012,Colluding Against Environmental Regulation,llm_primary_policy_category,cost_benefit_or_welfare,predicts_effects_with_models
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_primary_policy_category,causal_effect_of_policy,none
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_primary_policy_category,predicts_effects_with_models,none
+https://openalex.org/W2972663682,Cognitive Hubs and Spatial Redistribution,llm_primary_policy_category,cost_benefit_or_welfare,predicts_effects_with_models
+https://openalex.org/W4386444979,Does Taxing Business Owners Affect Employees? Evidence From A Change in the Top Marginal Tax Rate,llm_primary_policy_category,causal_effect_of_policy,unintended_consequences
+https://openalex.org/W4319338161,"Low-Quality Seeds, Labor Supply, and Economic Returns: Experimental Evidence from Tanzania",llm_primary_policy_category,descriptive_fact,none
+https://openalex.org/W4409752777,Dynamic Banking and the Value of Deposits,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W4401376832,The credit supply channel of monetary policy tightening and its distributional impacts,llm_primary_policy_category,impacts_on_specific_groups,identifies_mechanisms
+https://openalex.org/W4409727497,Depressed Peers in Early Parenthood,llm_primary_policy_category,unintended_consequences,none
+https://openalex.org/W2549907004,Private Equity Buyouts and Workplace Safety,llm_primary_policy_category,descriptive_fact,none
+https://openalex.org/W4410884798,The End of an Impossible Choice: Removing Infertility as a Prerequisite for Legal Gender Recognition,llm_primary_policy_category,causal_effect_of_policy,descriptive_fact
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_primary_policy_category,causal_effect_of_policy,none
+https://openalex.org/W3124131857,The Retention Effects of Unvested Equity: Evidence from Accelerated Option Vesting,llm_policy_reference,existing_policy,none
+https://openalex.org/W4221077871,The Consequences of Letter Grades for Labor Market Outcomes and Student Behavior,llm_policy_reference,existing_policy,none
+https://openalex.org/W2896096066,In Vaccines We Trust? The Effects of the CIA’s Vaccine Ruse on Immunization in Pakistan,llm_policy_reference,existing_policy,none
+https://openalex.org/W2543658475,A Real Estate Boom with Chinese Characteristics,llm_policy_reference,proposed_or_hypothetical_policy,none
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_policy_reference,existing_policy,none
+https://openalex.org/W3123887647,The Globalization of Postsecondary Education: The Role of International Students in the US Higher Education System,llm_policy_reference,existing_policy,none
+https://openalex.org/W4413828718,"Downey, Leah. Our Money: Monetary Policy as if Democracy Matters",llm_policy_reference,existing_policy,none
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_policy_reference,existing_policy,none
+https://openalex.org/W4416863109,The Economics of Infectious Diseases,llm_policy_reference,both,existing_policy
+https://openalex.org/W3125823364,"Contingent Capital, Tail Risk, and Debt-Induced Collapse",llm_policy_reference,proposed_or_hypothetical_policy,none
+https://openalex.org/W4394595298,The Value of Student Debt Relief and the Role of Administrative Barriers: Evidence from the Teacher Loan Forgiveness Program,llm_policy_reference,both,existing_policy
+https://openalex.org/W2400959961,"Managerial Delegation, Law Enforcement, and Aggregate Productivity",llm_policy_reference,proposed_or_hypothetical_policy,both
+https://openalex.org/W4409727497,Depressed Peers in Early Parenthood,llm_policy_reference,existing_policy,none
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_policy_reference,proposed_or_hypothetical_policy,none
+https://openalex.org/W3124131857,The Retention Effects of Unvested Equity: Evidence from Accelerated Option Vesting,llm_policy_evaluation,True,False
+https://openalex.org/W4221077871,The Consequences of Letter Grades for Labor Market Outcomes and Student Behavior,llm_policy_evaluation,True,False
+https://openalex.org/W2896096066,In Vaccines We Trust? The Effects of the CIA’s Vaccine Ruse on Immunization in Pakistan,llm_policy_evaluation,True,False
+https://openalex.org/W4200389027,Market power and credit rating standards: Global evidence,llm_policy_evaluation,True,False
+https://openalex.org/W3159672012,Colluding Against Environmental Regulation,llm_policy_evaluation,True,False
+https://openalex.org/W3162375493,Minimum Grade Requirements for Economics Majors: Effects on Enrollments and Student Learning,llm_policy_evaluation,True,False
+https://openalex.org/W4409727497,Depressed Peers in Early Parenthood,llm_policy_evaluation,True,False
+https://openalex.org/W4410884798,The End of an Impossible Choice: Removing Infertility as a Prerequisite for Legal Gender Recognition,llm_policy_evaluation,True,False
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_policy_evaluation,True,False
+https://openalex.org/W4319788553,Do Municipal Bond Dealers Give Their Customers “Fair and Reasonable” Pricing?,llm_jel_primary,G12,G24
+https://openalex.org/W3205436595,The Economics of the COVID-19 Pandemic in Poor Countries,llm_jel_primary,O15,O12
+https://openalex.org/W4306160033,The Dynamics of Disagreement,llm_jel_primary,G41,G12
+https://openalex.org/W2945746942,The Burgeoning Health Care Needs of Aging Prisoners,llm_jel_primary,I14,I10
+https://openalex.org/W4414511355,Policy Diffusion and Polarization across U.S. States,llm_jel_primary,D72,H77
+https://openalex.org/W3174918233,"Recruitment, Effort, and Retention Effects of Performance Contracts for Civil Servants: Experimental Evidence from Rwandan Primary Schools",llm_jel_primary,I21,M52
+https://openalex.org/W2788957357,How Valuable Is FinTech Innovation?,llm_jel_primary,O33,G14
+https://openalex.org/W4416862971,"James, Harold. Seven Crashes: The Economic Crises that Shaped Globalization",llm_jel_primary,N10,F60
+https://openalex.org/W3148258657,Normalizations and Misspecification in Skill Formation Models,llm_jel_primary,C51,C18
+https://openalex.org/W4401612243,Effects of Childhood Peers on Personality Traits,llm_jel_primary,I21,J24
+https://openalex.org/W3022391320,"Can’t Pay or Won’t Pay? Unemployment, Negative Equity, and Strategic Default",llm_jel_primary,G21,G51
+https://openalex.org/W2781778941,"Social Risk, Fiscal Risk, and the Portfolio of Government Programs",llm_jel_primary,H50,H21
+https://openalex.org/W2592685220,Modern Family? Paternity Leave and Marital Stability,llm_jargon,2.0,3.0
+https://openalex.org/W2543658475,A Real Estate Boom with Chinese Characteristics,llm_jargon,1.0,2.0
+https://openalex.org/W2894909951,Team-Specific Capital and Innovation,llm_jargon,2.0,3.0
+https://openalex.org/W2757281979,New Evidence on the Aftermath of Financial Crises in Advanced Countries,llm_jargon,2.0,3.0
+https://openalex.org/W4245471775,2021 Lucas Prize Announcement,llm_jargon,2.0,3.0
+https://openalex.org/W2105483785,Emotions and Political Unrest,llm_jargon,2.0,3.0
+https://openalex.org/W2185739321,Incentive Compatibility of Large Centralized Matching Markets,llm_jargon,5.0,4.0
+https://openalex.org/W4226179405,Mental Health Costs of Lockdowns: Evidence from Age-Specific Curfews in Turkey,llm_jargon,3.0,2.0
+https://openalex.org/W4409752777,Dynamic Banking and the Value of Deposits,llm_jargon,3.0,4.0
+https://openalex.org/W2799371846,Role Models in Movies: The Impact of Queen of Katwe on Students’ Educational Attainment,llm_jargon,2.0,1.0
+https://openalex.org/W2952653163,Immigrant Communities and Knowledge Spillovers: Danish Americans and the Development of the Dairy Industry in the United States,llm_sentence_complexity,2.0,3.0
+https://openalex.org/W3205436595,The Economics of the COVID-19 Pandemic in Poor Countries,llm_sentence_complexity,2.0,3.0
+https://openalex.org/W2924035940,The Value of Insiders as Mentors: Evidence from the Effects of NSF Rotators on Early-Career Scientists,llm_sentence_complexity,3.0,2.0
+https://openalex.org/W4398238071,Student Debt Relief and Racial Wealth Gaps,llm_sentence_complexity,3.0,2.0
+https://openalex.org/W4411198783,What Do Managers Do? An Economist's Perspective,llm_sentence_complexity,3.0,2.0
+https://openalex.org/W1874251451,Is the WTO Passé?,llm_sentence_complexity,3.0,2.0
+https://openalex.org/W3123887647,The Globalization of Postsecondary Education: The Role of International Students in the US Higher Education System,multidisciplinary,False,True
+https://openalex.org/W4226189635,Corporate flexibility in a time of crisis,multidisciplinary,False,True

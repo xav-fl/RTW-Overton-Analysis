@@ -1,10 +1,46 @@
 # Overton Analysis
 
-Downloads journal articles for 20 economics journals (publication years 2016–2025)
-from the OpenAlex API, separates research papers from comments, corrections,
-front matter and other non-research items, and writes paper and author tables
-plus DOI lists for upload to Overton. The full specification is in
-[OVERTON_STAGE1_BRIEF_v1.md](OVERTON_STAGE1_BRIEF_v1.md).
+Which economics research gets cited in policy documents? This repository
+collects every research paper published in 20 economics journals from 2016 to
+2025, codes each one's characteristics (topic, JEL codes, research design,
+policy relevance, readability), and counts the policy documents that cite it,
+using Overton. It is one half of a study comparing what economists research
+with what policymakers say they care about. The other half, policymakers'
+statements, is in [RTW-Speech-Scanner-V1](https://github.com/xav-fl/RTW-Speech-Scanner-V1).
+
+## Start here: the data
+
+All outputs are in [`data/release/`](data/release).
+
+| File | Rows | What it is |
+|---|---|---|
+| **`papers_coded_cited.csv`** | 16,147 | **The main table.** One row per research paper: OpenAlex metadata, the LLM-coded characteristics and the policy-citation counts. Coding and citation counts are filled in for the papers done so far (195 coded, 100 matched against Overton) and blank for the rest |
+| **`overton_sample_merged_v0.2.xlsx`** | 100 | **The easiest place to start.** The 100-paper pilot sample in Excel, with a "Read me" sheet: paper metadata, coding and citations, plus sheets for authors, citations by characteristic, every citing document and every citing source |
+| `overton_coded_sample_v0.2.xlsx`, `…_cited.xlsx` | 100 | Earlier cuts of the same pilot workbook: coding only, then coding plus citations |
+| `policy_citation_links.csv` | 1,653 | One row per paper × citing policy document, with whether it counted towards the total and why |
+| `overton_sources.csv` | 234 | Each citing organisation and how many of its documents were counted or excluded, for reviewing the inclusion rule |
+| `papers_stage1.csv` | 16,147 | Research papers before coding (OpenAlex metadata only) |
+| `authorships_stage1.csv` | | Paper × author × institution |
+| `author_disciplines.csv` | 487 | Each author's department discipline, coded from the affiliation text |
+| `excluded_items.csv` | 3,042 | Journal items that are not research papers (comments, corrections, front matter …), with the reason |
+| `overton_doi_*.txt` | | DOI lists to upload to Overton |
+
+Column definitions for the coded fields are in the Stage 2 and Stage 3 tables
+below, and the coding rules are in [`config/llm_codebook_v0.2.txt`](config/llm_codebook_v0.2.txt).
+[`reports/`](reports) holds the run reports, and `data/review/` holds the
+samples set aside for human checking.
+
+## Pipeline
+
+| Stage | What it does | Command |
+|---|---|---|
+| 1 | Harvest the journals from OpenAlex and filter out non-research items | `overton all` |
+| 2 | Code each paper with Claude against the codebook | `overton llm-run`, `llm-assemble` |
+| 3 | Merge in the policy documents that cite each paper, exported from Overton | `overton overton-merge` |
+
+The full Stage 1 specification is in
+[OVERTON_STAGE1_BRIEF_v1.md](OVERTON_STAGE1_BRIEF_v1.md). The rest of this
+README is the reference for running each stage.
 
 ## Setup (Windows / PowerShell)
 
@@ -46,7 +82,10 @@ the same command after midnight UTC and the harvest resumes where it stopped.
 | `data/review/` | samples and flagged items for human review |
 | `reports/STAGE1_RUN_REPORT.md`, `reports/harvest_report.csv` | run log and per journal-year counts |
 
-`data/` is git-ignored.
+`data/raw/openalex/` and the `data/interim/` tables are not committed, because
+the commands above rebuild them. Everything that can't be rebuilt by code is
+committed: `data/release/`, `data/review/`, the Overton exports in
+`data/raw/overton/`, and the model responses in `data/interim/llm/`.
 
 # Stage 2 — LLM-coded paper characteristics
 
@@ -65,7 +104,6 @@ a new run key without overwriting earlier answers. JEL codes come from
 | `llm_cat_*` (8 survey categories, yes/no each), `llm_primary_policy_category` | model |
 | `llm_item_type`, `llm_research_type`, `llm_empirical_design`, `llm_is_review`, `llm_is_empirical`, `llm_causal_design` | model |
 | `llm_policy_evaluation`: a causal-effect or unintended-consequences category, with an experimental, quasi-experimental or structural design | computed from the model's fields |
-| `llm_policy_evaluation`: causal or unintended-consequences category, with an experimental, quasi-experimental or structural design | computed from the model fields |
 | `llm_policy_reference` (none / existing / proposed / both) | model |
 | `llm_jargon`, `llm_sentence_complexity` (1–5) | model |
 | `abs_flesch_reading_ease`, `abs_flesch_kincaid_grade`, `abs_words_per_sentence`, … | computed in code |

@@ -1,0 +1,235 @@
+source_id,source_name,source_type,source_country,documents,counted,working_papers,excluded
+nber,NBER,Think Tank,USA,262,0,262,262
+izade,Forschungsinstitut zur Zukunft der Arbeit (IZA),Think Tank,Germany,173,2,171,171
+ifode,ifo Institut,Think Tank,Germany,103,7,96,96
+ifs,Institute for Fiscal Studies,Think Tank,UK,14,1,13,13
+unuwider,United Nations University World Institute for Development Economics Research,Think Tank,Finland,10,0,10,10
+diwde,Deutsches Institut für Wirtschaftsforschung (DIW),Think Tank,Germany,10,3,7,7
+kielinstitute,Kiel Institut für Weltwirtschaft (IfW Kiel),Think Tank,Germany,8,2,6,6
+cgiar,CGIAR,Think Tank,France,7,1,6,6
+equitablegrowth,Washington Center for Equitable Growth,Think Tank,USA,6,0,6,6
+cgdev,Center for Global Development,Think Tank,USA,6,1,5,5
+ifnsweden,Institutet för Näringslivsforskning,Think Tank,Sweden,6,1,5,5
+piie,Peterson Institute for International Economics,Think Tank,USA,6,1,5,5
+upjohninstitute,Upjohn Institute,Think Tank,USA,6,1,5,5
+etlafi,ETLA,Think Tank,Finland,10,6,4,4
+feemit,Fondazione Eni Enrico Mattei,Think Tank,Italy,3,0,3,3
+lcdcllu,LIS Cross-National Data Center in Luxembourg - LWS Working papers,Think Tank,Luxembourg,3,0,3,3
+rietijp,"Research Institute of Economy, Trade and Industry (RIETI)",Think Tank,Japan,3,0,3,3
+apo,Australian Policy Online,NGO,Australia,6,4,2,2
+centerforinternationaldevelopment,Center for International Development,Think Tank,USA,2,0,2,2
+grantham,Grantham Institute,Think Tank,UK,2,0,2,2
+hooverinstitution,Hoover Institution,Think Tank,USA,2,0,2,2
+lincolninstitute,Lincoln Institute,Think Tank,USA,2,0,2,2
+oxunicbt,Oxford University Centre for Business Taxation,Think Tank,UK,2,0,2,2
+rockwoolfonden,ROCKWOOL Fonden,Think Tank,Denmark,5,4,0,1
+ferdifr,FERDI,Think Tank,France,3,2,1,1
+gradinstitute,Geneva Graduate Institute,Think Tank,Switzerland,3,2,0,1
+cepii,Centre d'Etudes Prospectives et d'Informations Internationales,Think Tank,France,2,1,1,1
+insperbr,Insper,Think Tank,Brazil,2,1,1,1
+americanenterpriseinstitute,American Enterprise Institute,Think Tank,USA,1,0,1,1
+cedlas,"Centro de Estudios Distributivos, Laborales y Sociales (CEDLAS)",Think Tank,Argentina,1,0,1,1
+econrsa,Economic Research Southern Africa,Think Tank,South Africa,1,0,1,1
+erforgeg,Economic Research Forum,Think Tank,Egypt,1,0,1,1
+etuiorg,European Trade Union Institute,Think Tank,Belgium,1,0,1,1
+idrc,International Development Research Centre,Think Tank,Canada,1,0,1,1
+ifpri,International Food Policy Research Institute (IFPRI),Think Tank,USA,1,0,1,1
+iseressex,Institute for Social and Economic Research,Think Tank,UK,1,0,1,1
+pepigo,Partnership for Economic Policy,NGO,Kenya,1,0,1,1
+productivityacuk,The Productivity Institute,Think Tank,UK,1,0,1,1
+wiiw,Wiener Institut für Internationale Wirtschaftsvergleiche,Think Tank,Austria,1,0,1,1
+wzbde,Wissenschaftszentrum Berlin für Sozialforschung (WZB),Think Tank,Germany,1,0,1,1
+worldbank,World Bank,IGO,IGO,118,118,58,0
+imf,International Monetary Fund,IGO,IGO,44,44,33,0
+iadb,Inter-American Development Bank,IGO,IGO,38,38,19,0
+oecddiscovery,OECD,IGO,IGO,33,33,13,0
+europa,Publications Office of the European Union,Government,EU,27,27,0,0
+thebis,BIS,IGO,IGO,17,17,16,0
+ifausweden,Institutet för Arbetsmarknads-och Utbildningspolitisk Utvärdering,Government,Sweden,14,14,9,0
+bankofaustralia,Reserve Bank of Australia,Government,Australia,13,13,0,0
+brookings,Brookings Institution,Think Tank,USA,12,12,0,0
+povertyaction,Innovations for Poverty Action,Think Tank,Kenya,12,12,0,0
+bancaditalia,Banca D'Italia,Government,Italy,11,11,6,0
+bancoes,Banco de España,Government,Spain,11,11,3,0
+bankoffinland,Bank of Finland,Government,Finland,11,11,10,0
+ecb,European Central Bank,Government,EU,11,11,11,0
+napedu,"National Academies of Sciences, Engineering, and Medicine",Government,USA,11,11,0,0
+sanfranciscofed,Federal Reserve Bank of San Francisco,Government,USA,11,11,10,0
+bostonfed,Federal Reserve Bank of Boston,Government,USA,9,9,5,0
+cafbank,CAF - Banco de Desarrollo de América Latina y el Caribe,IGO,Venezuela,9,9,0,0
+ilo,International Labour Organization,IGO,IGO,9,9,2,0
+ceprorg,Centre for Economic Policy Research,Think Tank,UK,8,8,0,0
+dnbnl,De Nederlandsche Bank,Government,Netherlands,8,8,8,0
+asiandevelopmentbank,Asian Development Bank,IGO,IGO,7,7,0,0
+bankofireland,Banc Ceannais na hÉireann,Government,Ireland,7,7,0,0
+chicagofed,Federal Reserve Bank of Chicago,Government,USA,7,7,7,0
+esridublin,ESRI,Think Tank,Ireland,7,7,0,0
+igcuk,International Growth Centre,Think Tank,UK,7,7,0,0
+philadelphiafed,Federal Reserve Bank of Philadelpha,Government,USA,7,7,0,0
+bundesbank,Deutsche Bundesbank,Government,Germany,6,6,6,0
+federalreserve,Federal Reserve,Government,USA,6,6,6,0
+nationalbankofbelgium,National Bank of Belgium,Government,Belgium,6,6,6,0
+randcorporation,RAND Corporation,Think Tank,USA,6,6,0,0
+uncepal,United Nations CEPAL,IGO,IGO,6,6,0,0
+urbaninstitute,Urban Institute,Think Tank,USA,6,6,0,0
+bankofchile,Banco Central de Chile,Government,Chile,5,5,5,0
+bankofengland,Bank of England,Government,UK,5,5,5,0
+clevelandfed,Federal Reserve Bank of Cleveland,Government,USA,5,5,3,0
+federalreserve_newyork,Federal Reserve Bank of New York,Government,USA,5,5,0,0
+finnishgovernment,Government of Finland,Government,Finland,5,5,0,0
+richmondfed,Federal Reserve Bank of Richmond,Government,USA,5,5,3,0
+riksbanksweden,Sveriges Riksbank,Government,Sweden,5,5,5,0
+treasurynz,New Zealand Treasury,Government,New Zealand,5,5,0,0
+unumerit,UNU - Maastricht Economic and Social Research Institute on Innovation and Technology (UNU-MERIT),IGO,Netherlands,5,5,5,0
+bankofjapan,Bank of Japan,Government,Japan,4,4,0,0
+banquedefrance,Banque de France,Government,France,4,4,0,0
+gpogov,Government Publishing Office (GPO),Government,USA,4,4,0,0
+gradeperu,Grupo de Análisis para el Desarrollo,Think Tank,Peru,4,4,0,0
+heritagefoundation,Heritage Foundation,Think Tank,USA,4,4,0,0
+jpal,Abdul Latif Jameel Poverty Action Lab (J-PAL),Think Tank,USA,4,4,0,0
+kudosno,Kunnskapsdokumenter i offentlig sektor (KUDOS),Government,Norway,4,4,0,0
+regeringen,Regeringskansliet,Government,Sweden,4,4,0,0
+stlouisfed,Federal Reserve Bank of St Louis,Government,USA,4,4,4,0
+whitehouse,Whitehouse.gov,Government,USA,4,4,0,0
+avenirsuisse,Avenir Suisse,Think Tank,Switzerland,3,3,0,0
+catoinstitute,Cato Institute,Think Tank,USA,3,3,0,0
+civilrightsorg,Leadership Conference on Civil and Human Rights,NGO,USA,3,3,0,0
+ebrduk,European Bank for Reconstruction and Development,IGO,IGO,3,3,2,0
+governmentofcanada,Government of Canada,Government,Canada,3,3,0,0
+govie,GOV.IE,Government,Ireland,3,3,0,0
+ipeabr,Instituto de Pesquisa Econômica Aplicada,Think Tank,Brazil,3,3,0,0
+jointresearcheu,Joint Research Centre,Government,EU,3,3,0,0
+lseblogs,blogs.lse.ac.uk,Think Tank,UK,3,3,0,0
+manhattan,Manhattan Institute,Think Tank,USA,3,3,0,0
+snsse,Studieförbundet Näringsliv och Samhälle,Think Tank,Sweden,3,3,0,0
+adminch,Government of Switzerland,Government,Switzerland,2,2,0,0
+bankofbrazil,Banco Central do Brasil,Government,Brazil,2,2,2,0
+bankofkorea,Bank of Korea,Government,South Korea,2,2,0,0
+bankofmexico,Banco de México (Banxico),Government,Mexico,2,2,0,0
+bibde,Bundesinstitut für Bevölkerungsforschung (BiB),Government,Germany,2,2,2,0
+caefr,Conseil d’Analyse Economique,Government,France,2,2,0,0
+california_state_agencies,State of California,Government,USA,2,2,0,0
+cbousa,Congressional Budget Office,Government,USA,2,2,1,0
+cedes,CEDES,Think Tank,Argentina,2,2,0,0
+chicagogov,City of Chicago,Government,USA,2,2,0,0
+committee_house,House Committees,Government,USA,2,2,0,0
+committee_senate,Senate Committees,Legislative Body,USA,2,2,0,0
+congressionalresearch,Congressional Research Service,Legislative Body,USA,2,2,0,0
+emffat,The European Money and Finance Forum,Think Tank,Austria,2,2,0,0
+euparl_library,European Parliamentary Research Service,Legislative Body,EU,2,2,0,0
+federalregister,Federal Register,Government,USA,2,2,0,0
+governmentofchile,Government of Chile,Government,Chile,2,2,0,0
+governmentofestonia,Government of Estonia,Government,Estonia,2,2,0,0
+insmde,Initiative Neue Soziale Marktwirtschaft (INSM),Think Tank,Germany,2,2,0,0
+kietkr,Korea Institute for Industrial Economics & Trade,Think Tank,South Korea,2,2,0,0
+marylandgov,State of Maryland,Government,USA,2,2,0,0
+niesr,National Institute of Economic and Social Research,Think Tank,UK,2,2,0,0
+rijksoverheid,Rijksoverheid,Government,Netherlands,2,2,0,0
+stateofnorthcarolina,State of North Carolina,Government,USA,2,2,0,0
+unctad,UNCTAD,IGO,IGO,2,2,0,0
+unesco,UNESCO,IGO,IGO,2,2,0,0
+usbea,U.S. Bureau of Economic Analysis,Government,USA,2,2,0,0
+uscensusbureau,United States Census Bureau,Government,USA,2,2,1,0
+wipo,World Intellectual Property Organization,IGO,IGO,2,2,0,0
+wto,World Trade Organization,IGO,IGO,2,2,0,0
+acton,Acton Institute,Think Tank,USA,1,1,0,0
+afdb,African Development Bank,IGO,IGO,1,1,0,0
+aspeninstitute,The Aspen Institute,Think Tank,USA,1,1,0,0
+atlantafed,Federal Reserve Bank of Atlanta,Government,USA,1,1,1,0
+bankofaustria,Österreichische Nationalbank,Government,Austria,1,1,1,0
+bankofcolombia,Banco de la República,Government,Colombia,1,1,1,0
+bfde,Bertelsmann Stifung,Think Tank,Germany,1,1,0,0
+bituk,Behavioural Insights Team,Think Tank,UK,1,1,0,0
+bundesregierung,Deutsche Bundesregierung,Government,Germany,1,1,0,0
+bundestag,Deutscher Bundestag,Legislative Body,Germany,1,1,0,0
+california_lao,Legislative Analyst's Office,Legislative Body,USA,1,1,0,0
+cdhowe,C.D. Howe Institute,Think Tank,Canada,1,1,0,0
+centraalplanbureau,Het Centraal Planbureau,Government,Netherlands,1,1,0,0
+centreforeconomicpolicyresearch,Centre for Economic Policy Research,Think Tank,USA,1,1,0,0
+centreforsocialjustice,Centre for Social Justice,Think Tank,UK,1,1,0,0
+cgaporg,CGAP,Think Tank,IGO,1,1,0,0
+changingeurope,Changing Europe,Think Tank,UK,1,1,0,0
+cigi,Centre for International Governance Innovation,Think Tank,Canada,1,1,0,0
+cippec,Centro de Implementación de Políticas Públicas para la Equidad y el Crecimiento,Think Tank,Argentina,1,1,0,0
+cityofmadrid,Comunidad de Madrid,Government,Spain,1,1,0,0
+cityofstockholm,City of Stockholm,Government,Sweden,1,1,0,0
+claspdc,CLASP,Think Tank,USA,1,1,0,0
+csis,Center for Strategic and International Studies,Think Tank,USA,1,1,0,0
+daisca,The Dais,Think Tank,Canada,1,1,0,0
+dcgov,District of Columbia,Government,USA,1,1,0,0
+deptjusticeie,An Roinn Dlí agus Cirt,Government,Ireland,1,1,0,0
+econpoleurope,EconPol Europe,Think Tank,Germany,1,1,0,0
+edulinksusa,EduLinks,Government,USA,1,1,0,0
+efide,Experten Kommission Forschung und Innovation (EFI),Government,Germany,1,1,0,0
+employamerica,Employ America,Think Tank,USA,1,1,0,0
+epaireland,Irish Environmental Protection Agency,Government,Ireland,1,1,0,0
+euinvestbank,European Investment Bank,Government,EU,1,1,0,0
+fafono,Fafo,Think Tank,Norway,1,1,0,0
+federalpublicservicesbe,Belgian Federal Public Services,Government,Belgium,1,1,0,0
+fedesarrollo,Fedesarrollo,Think Tank,Colombia,1,1,0,0
+fgvbr,Fundação Getulio Vargas,Think Tank,Brazil,1,1,0,0
+fiscalpolicycouncilsweden,Finanspolitiska Rådet,Government,Sweden,1,1,0,0
+forsakringskassanse,Försäkringskassan,Government,Sweden,1,1,0,0
+fraserinstitute,Fraser Institute,Think Tank,Canada,1,1,0,0
+fsiisusa,Freeman Spogli Institute for International Studies (FSI),Think Tank,USA,1,1,0,0
+fundacionalternativas,Fundación Alternativas,Think Tank,Spain,1,1,0,0
+globalrelationsforum,Global Relations Forum,Think Tank,Turkey,1,1,0,0
+govdeptsbrazil,Government of Brazil,Government,Brazil,1,1,0,0
+govdeptsjapan,Government of Japan,Government,Japan,1,1,0,0
+governmentofczech,Government of the Czech Republic,Government,Czech Republic,1,1,0,0
+governmentofmyanmar,Government of Myanmar,Government,Myanmar,1,1,0,0
+governmentofparaguay,Government of Paraguay,Government,Paraguay,1,1,0,0
+governmentofperu,Government of Peru,Government,Peru,1,1,0,0
+governmentofslovakia,Government of the Slovak Republic,Government,Slovakia,1,1,0,0
+governmentofsouthafrica,Government of South Africa,Government,South Africa,1,1,0,0
+govuk,The UK Government,Government,UK,1,1,0,0
+hkmonetaryauthority,Hong Kong Monetary Authority,Government,China,1,1,0,0
+idbinvest,IDB Invest,IGO,IGO,1,1,0,0
+iea,Institute of Economic Affairs,Think Tank,UK,1,1,0,0
+ifad,International Fund for Agricultural Development,IGO,IGO,1,1,0,0
+ioech,International Organization of Employers,NGO,Switzerland,1,1,0,0
+iseakes,iseak,Think Tank,Spain,1,1,0,0
+kansascityfed,Federal Reserve Bank of Kansas City,Government,USA,1,1,1,0
+kiccekr,Korea Institute of Child Care and Education,Think Tank,South Korea,1,1,0,0
+klikr,Korea Labour Institute,Think Tank,South Korea,1,1,0,0
+konradadenauerstiftung,Konrad Adenauer Stiftung (KAS),Think Tank,Germany,1,1,0,0
+lsecase,Centre for Analysis of Social Exclusion,Think Tank,UK,1,1,0,0
+mathematicaus,Mathematica,NGO,USA,1,1,0,0
+mentalhealthfoundation,Mental Health Foundation,NGO,UK,1,1,0,0
+mercatus,Mercatus Center,Think Tank,USA,1,1,0,0
+minneapolisfed,Federal Reserve Bank of Minneapolis,Government,USA,1,1,0,0
+mmfusa,Milbank Memorial Fund,Think Tank,USA,1,1,0,0
+ngipsjp,National Graduate Institute for Policy Studies (GRIPS),Think Tank,Japan,1,1,0,0
+nifuno,"Nordisk institutt for studier av innovasjon, forskning og utdanning (NIFU)",Think Tank,Norway,1,1,0,0
+nupi,Norweigan Institute of International Affairs,Think Tank,Norway,1,1,0,0
+nycgov,City of New York,Government,USA,1,1,0,0
+odi,Overseas Development Institute (ODI),Think Tank,UK,1,1,0,0
+opregovus,OPRE,Government,USA,1,1,0,0
+parliamentofnetherlands,Staten-Generaal,Legislative Body,Netherlands,1,1,0,0
+parliamentofswitzerland,Federal Assembly,Legislative Body,Switzerland,1,1,0,0
+productivitynz,New Zealand Productivity Commission,Government,New Zealand,1,1,0,0
+provinceofbc,Province of British Columbia,Government,Canada,1,1,0,0
+riksdag,Sveriges Riksdag,Legislative Body,Sweden,1,1,0,0
+sachverstandigenrat,Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung,Government,Germany,1,1,0,0
+scpnl,Sociaal en Cultureel Planbureau,Government,Netherlands,1,1,0,0
+seoamsterecon,SEO Amsterdam Economics,Think Tank,Netherlands,1,1,0,0
+ssbno,Statistisk sentralbyrå,Government,Norway,1,1,0,0
+stateofkentucky,State of Kentucky,Government,USA,1,1,0,0
+stateofmontana,State of Montana,Government,USA,1,1,0,0
+stateofmurcia,Comunidad Autónoma de la Región de Murcia,Government,Spain,1,1,0,0
+stateofnevada,State of Nevada,Government,USA,1,1,0,0
+stateofoklahoma,State of Oklahoma,Government,USA,1,1,0,0
+stateofvalencia,Generalitat Valenciana,Government,Spain,1,1,0,0
+stateofvictoria,State of Victoria,Government,Australia,1,1,0,0
+stateofvirginia,Commonwealth of Virginia,Government,USA,1,1,0,0
+taxpolicycenter,Tax Policy Center,Think Tank,USA,1,1,0,0
+tcspsiil,Taub Center for Social Policy Studies in Israel,Think Tank,Israel,1,1,0,0
+unitednations,United Nations,IGO,IGO,1,1,0,0
+uvmdk,Danish Ministry of Children and Education,Government,Denmark,1,1,0,0
+vivedk,Det Nationale Forsknings - og Analysecenter for Velfærd,Government,Denmark,1,1,0,0
+voxdev,VoxDev,Think Tank,UK,1,1,0,0
+voxeu,VoxEU,Think Tank,UK,1,1,0,0
+vrse,Vetenskapsrådet,Government,Sweden,1,1,0,0
+who,World Health Organization,IGO,IGO,1,1,0,0
+wifoaustria,Österreichisches Institut für Wirtschaftsforschung,Think Tank,Austria,1,1,0,0
+worldfood,World Food Programme,IGO,IGO,1,1,0,0
