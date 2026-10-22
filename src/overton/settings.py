@@ -71,6 +71,11 @@ class Paths:
         self.validation_sample = self.review / "llm_validation_sample.csv"
         self.llm_agreement = self.reports / "llm_agreement.csv"
         self.llm_report = self.reports / "LLM_CODING_REPORT.md"
+        self.overton_raw = self.data / "raw" / "overton"
+        self.overton_queried = self.overton_raw / "queried"
+        self.papers_cited = self.release / "papers_coded_cited.csv"
+        self.citation_links = self.release / "policy_citation_links.csv"
+        self.overton_sources = self.release / "overton_sources.csv"
 
     def jy_dir(self, journal_key: str, year: int) -> Path:
         return self.raw / journal_key / str(year)

@@ -120,3 +120,24 @@ papers already coded under the current run key, so both resume. `--model` and
 `--effort` override the defaults (and change the run key). Every response is kept
 in `data/interim/llm/responses.jsonl`. Exit code 4 means no further request can
 succeed (credit, key, sign-in or usage limit).
+
+# Stage 3 — policy citations from Overton
+
+1. Search Overton's scholarly works with a DOI list (e.g. `data/release/overton_doi_sample_100.txt`)
+   and export the **policy documents** citing them, with all columns, as CSV.
+2. Save the export in `data/raw/overton/`, and a copy of the DOI list you searched in
+   `data/raw/overton/queried/`. A searched paper with no citing document gets 0; a paper
+   whose DOI is in no list there stays blank.
+3. `.venv\Scripts\python -m overton overton-merge`
+
+Which citing documents count: everything from government, IGO and legislative sources,
+including their research working papers; think-tank and NGO documents except working
+papers (Overton files NBER, IZA, ifo/CESifo and IFS working papers as think-tank
+documents); never scholarly articles. A document listed twice (re-issued, or co-published
+by two institutions) counts once per paper. `policy_cites_all` is the count before exclusions.
+
+| Output | Contents |
+|---|---|
+| `data/release/papers_coded_cited.csv` | `papers_coded.csv` plus `policy_cites`, `policy_cited_any`, counts by organisation type and region, first citation year |
+| `data/release/policy_citation_links.csv` | paper × citing document, with whether it counted and why |
+| `data/release/overton_sources.csv` | each citing organisation: documents, counted, excluded — for reviewing the rule |

@@ -1,6 +1,6 @@
 """CLI: python -m overton {resolve,harvest,normalise,filter,report,all} (Stage 1)
 and {llm-sample,llm-run,llm-submit,llm-collect,llm-assemble,llm-compare,
-llm-agreement} (Stage 2).
+llm-agreement} (Stage 2) and overton-merge (Stage 3).
 
 Exit codes: 0 ok, 2 a gate failed, 3 OpenAlex budget or rate limit reached
 (re-run the same command after midnight UTC; the harvest resumes), 4 the
@@ -16,8 +16,8 @@ import pandas as pd
 
 from . import client as cl
 from . import filter as flt
-from . import (claude_cli, harvest, llm_assemble, llm_code, normalise, report, resolve,
-               settings)
+from . import (claude_cli, harvest, llm_assemble, llm_code, normalise, policy_cites, report,
+               resolve, settings)
 from .settings import Paths
 
 
@@ -257,6 +257,23 @@ def cmd_llm_compare(paths: Paths, args) -> None:
     print(f"  {len(changed)} changed answers listed in reports/llm_compare_{args.old}_{new}_changes.csv")
 
 
+def cmd_overton_merge(paths: Paths) -> None:
+    print("== Stage 3: merge Overton policy citations")
+    key = llm_assemble.current_run_key(paths)
+    coded = llm_assemble.assemble(paths, key)
+    out, links, sources = policy_cites.merge(paths, coded)
+    q = out[out["overton_queried"] == True]  # noqa: E712
+    print(f"  {links['overton_document_id'].nunique()} citing documents, {len(links)} links "
+          f"({int(links['duplicate'].sum())} duplicates dropped, "
+          f"{int((~links['counts'] & ~links['duplicate']).sum())} excluded by the rule)")
+    print(f"  {len(q)} papers searched: {int(q['policy_cited_any'].sum())} cited at least once; "
+          f"{int(q['policy_cites'].sum())} policy citations "
+          f"({int(q['policy_cites_all'].sum())} before exclusions)")
+    print(f"  wrote {paths.papers_cited.relative_to(paths.root)}, "
+          f"{paths.citation_links.relative_to(paths.root)}, "
+          f"{paths.overton_sources.relative_to(paths.root)}")
+
+
 def _llm_args(p) -> None:
     p.add_argument("--model", default=settings.LLM_MODEL)
     p.add_argument("--effort", default=settings.LLM_EFFORT,
@@ -287,6 +304,7 @@ def main(argv=None) -> int:
                            help="claude-code: your Claude sign-in via `claude -p` (default); "
                                 "api: ANTHROPIC_API_KEY")
     sub.add_parser("llm-collect")
+    sub.add_parser("overton-merge")
     q = sub.add_parser("llm-assemble")
     _llm_args(q)
     q.add_argument("--run-key", help="assemble this run key instead of the current settings'")
@@ -326,6 +344,8 @@ def main(argv=None) -> int:
             cmd_llm_collect(paths)
         elif args.command == "llm-assemble":
             cmd_llm_assemble(paths, args)
+        elif args.command == "overton-merge":
+            cmd_overton_merge(paths)
         elif args.command == "llm-compare":
             cmd_llm_compare(paths, args)
         elif args.command == "llm-agreement":
