@@ -1,0 +1,610 @@
+------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\u2272618\GitHub\RTW-Overton-Analysis\data\analysis/output/01_import_clean.log
+  log type:  text
+ opened on:  29 Oct 2026, 12:22:17
+r; t=0.00 12:22:17
+
+. 
+. local xlsx  "release/overton_sample_merged_v0.2.xlsx"
+r; t=0.00 12:22:17
+
+. local sheet "Merged sample"
+r; t=0.00 12:22:17
+
+. 
+. *------------------------------------------------------------------------------
+. * 1. Column map: new names, in sheet order, matched to the expected headers
+. *------------------------------------------------------------------------------
+. local vars                                                                   ///
+>     journal year title doi abstract                                          ///
+>     pol_cites pol_cited_any pol_cites_all pol_cites_excl_wp                  ///
+>     pol_cites_gov pol_cites_igo pol_cites_leg pol_cites_thinktank            ///
+>     pol_cites_us pol_cites_europe pol_cites_intl pol_cites_othctry           ///
+>     pol_n_citing_orgs pol_first_year pol_years_to_first                      ///
+>     acad_cites fwci n_refs n_authors n_insts n_countries                     ///
+>     author_names author_insts author_countries journal_name                  ///
+>     pub_date_str volume issue pages                                          ///
+>     oa_topic oa_subfield oa_keywords open_access oa_status                   ///
+>     top15_econ top15_all                                                     ///
+>     item_type topic_llm jel_model jel_authors research_type emp_design       ///
+>     pc_novel_policy pc_causal_effect pc_descriptive pc_unintended            ///
+>     pc_predicts_model pc_cost_benefit pc_mechanisms pc_specific_groups       ///
+>     primary_pc policy_studied policy_eval                                    ///
+>     jargon sent_complexity flesch_ease fk_grade                              ///
+>     author_disciplines multidisc multidisc_noneb llm_notes openalex_id
+r; t=0.00 12:22:17
+
+. 
+. * Expected header for each column, in sheet order (h1..h67)
+. local h1  "Journal"                                       // journal
+r; t=0.00 12:22:17
+
+. local h2  "Year"                                          // year
+r; t=0.00 12:22:17
+
+. local h3  "Title"                                         // title
+r; t=0.00 12:22:17
+
+. local h4  "DOI"                                           // doi
+r; t=0.00 12:22:17
+
+. local h5  "Abstract"                                      // abstract
+r; t=0.00 12:22:17
+
+. local h6  "Policy citations"                              // pol_cites
+r; t=0.00 12:22:17
+
+. local h7  "Cited in policy (any)"                         // pol_cited_any
+r; t=0.00 12:22:17
+
+. local h8  "All Overton citations (incl. excluded)"        // pol_cites_all
+r; t=0.00 12:22:17
+
+. local h9  "Excluded (academic working papers)"            // pol_cites_excl_wp
+r; t=0.00 12:22:17
+
+. local h10 "Citations: government"                         // pol_cites_gov
+r; t=0.00 12:22:17
+
+. local h11 "Citations: IGO"                                // pol_cites_igo
+r; t=0.00 12:22:17
+
+. local h12 "Citations: legislature"                        // pol_cites_leg
+r; t=0.00 12:22:17
+
+. local h13 "Citations: think tank / NGO"                   // pol_cites_thinktank
+r; t=0.00 12:22:17
+
+. local h14 "Citations: US"                                 // pol_cites_us
+r; t=0.00 12:22:17
+
+. local h15 "Citations: Europe"                             // pol_cites_europe
+r; t=0.00 12:22:17
+
+. local h16 "Citations: international bodies"               // pol_cites_intl
+r; t=0.00 12:22:17
+
+. local h17 "Citations: other countries"                    // pol_cites_othctry
+r; t=0.00 12:22:17
+
+. local h18 "Distinct citing organisations"                 // pol_n_citing_orgs
+r; t=0.00 12:22:17
+
+. local h19 "First policy citation (year)"                  // pol_first_year
+r; t=0.00 12:22:17
+
+. local h20 "Years to first policy citation"                // pol_years_to_first
+r; t=0.00 12:22:17
+
+. local h21 "Academic citations (OpenAlex)"                 // acad_cites
+r; t=0.00 12:22:17
+
+. local h22 "Field-weighted citation impact"                // fwci
+r; t=0.00 12:22:17
+
+. local h23 "References"                                    // n_refs
+r; t=0.00 12:22:17
+
+. local h24 "Authors (n)"                                   // n_authors
+r; t=0.00 12:22:17
+
+. local h25 "Institutions (n)"                              // n_insts
+r; t=0.00 12:22:17
+
+. local h26 "Countries (n)"                                 // n_countries
+r; t=0.00 12:22:17
+
+. local h27 "Author names"                                  // author_names
+r; t=0.00 12:22:17
+
+. local h28 "Author institutions"                           // author_insts
+r; t=0.00 12:22:17
+
+. local h29 "Author countries"                              // author_countries
+r; t=0.00 12:22:17
+
+. local h30 "Journal (full name)"                           // journal_name
+r; t=0.00 12:22:17
+
+. local h31 "Publication date"                              // pub_date_str
+r; t=0.00 12:22:17
+
+. local h32 "Volume"                                        // volume
+r; t=0.00 12:22:17
+
+. local h33 "Issue"                                         // issue
+r; t=0.00 12:22:17
+
+. local h34 "Pages"                                         // pages
+r; t=0.00 12:22:17
+
+. local h35 "OpenAlex topic"                                // oa_topic
+r; t=0.00 12:22:17
+
+. local h36 "OpenAlex subfield"                             // oa_subfield
+r; t=0.00 12:22:17
+
+. local h37 "OpenAlex keywords"                             // oa_keywords
+r; t=0.00 12:22:17
+
+. local h38 "Open access"                                   // open_access
+r; t=0.00 12:22:17
+
+. local h39 "Open access status"                            // oa_status
+r; t=0.00 12:22:17
+
+. local h40 "In top-15 economics journals"                  // top15_econ
+r; t=0.00 12:22:17
+
+. local h41 "In top-15 (all fields)"                        // top15_all
+r; t=0.00 12:22:17
+
+. local h42 "Item type"                                     // item_type
+r; t=0.00 12:22:17
+
+. local h43 "Topic"                                         // topic_llm
+r; t=0.00 12:22:17
+
+. local h44 "JEL codes (model)"                             // jel_model
+r; t=0.00 12:22:17
+
+. local h45 "JEL codes (authors, if listed)"                // jel_authors
+r; t=0.00 12:22:17
+
+. local h46 "Research type"                                 // research_type
+r; t=0.00 12:22:17
+
+. local h47 "Empirical design"                              // emp_design
+r; t=0.00 12:22:17
+
+. local h48 "Proposes novel policy"                         // pc_novel_policy
+r; t=0.00 12:22:17
+
+. local h49 "Causal effect of policy"                       // pc_causal_effect
+r; t=0.00 12:22:17
+
+. local h50 "Descriptive fact"                              // pc_descriptive
+r; t=0.00 12:22:17
+
+. local h51 "Unintended consequences"                       // pc_unintended
+r; t=0.00 12:22:17
+
+. local h52 "Predicts effects with models"                  // pc_predicts_model
+r; t=0.00 12:22:17
+
+. local h53 "Cost benefit or welfare"                       // pc_cost_benefit
+r; t=0.00 12:22:17
+
+. local h54 "Identifies mechanisms"                         // pc_mechanisms
+r; t=0.00 12:22:17
+
+. local h55 "Impacts on specific groups"                    // pc_specific_groups
+r; t=0.00 12:22:17
+
+. local h56 "Primary policy category"                       // primary_pc
+r; t=0.00 12:22:17
+
+. local h57 "Policy studied"                                // policy_studied
+r; t=0.00 12:22:17
+
+. local h58 "Policy evaluation"                             // policy_eval
+r; t=0.00 12:22:17
+
+. local h59 "Jargon (1-5)"                                  // jargon
+r; t=0.00 12:22:17
+
+. local h60 "Sentence complexity (1-5)"                     // sent_complexity
+r; t=0.00 12:22:17
+
+. local h61 "Flesch reading ease"                           // flesch_ease
+r; t=0.00 12:22:17
+
+. local h62 "Flesch-Kincaid grade"                          // fk_grade
+r; t=0.00 12:22:17
+
+. local h63 "Author disciplines"                            // author_disciplines
+r; t=0.00 12:22:17
+
+. local h64 "Multidisciplinary team"                        // multidisc
+r; t=0.00 12:22:17
+
+. local h65 "Multidisciplinary beyond econ/business"        // multidisc_noneb
+r; t=0.00 12:22:17
+
+. local h66 "Model notes"                                   // llm_notes
+r; t=0.00 12:22:17
+
+. local h67 "OpenAlex ID"                                   // openalex_id
+r; t=0.00 12:22:17
+
+. 
+. local K : word count `vars'
+r; t=0.00 12:22:17
+
+. assert `K' == 67
+r; t=0.00 12:22:17
+
+. 
+. *------------------------------------------------------------------------------
+. * 2. Check the header row matches the map (fails if columns move or change)
+. *------------------------------------------------------------------------------
+. import excel using "`xlsx'", sheet("`sheet'") cellrange(A1:BO1) allstring clear
+(67 vars, 1 obs)
+r; t=0.14 12:22:17
+
+. unab cols : _all
+r; t=0.01 12:22:17
+
+. assert `: word count `cols'' == `K'
+r; t=0.00 12:22:17
+
+. forvalues i = 1/`K' {
+  2.     local c : word `i' of `cols'
+  3.     local h "`h`i''"
+  4.     if strtrim(`c'[1]) != `"`h'"' {
+  5.         di as error `"Column `c': expected "`h'", found "`=`c'[1]'""'
+  6.         exit 9
+  7.     }
+  8. }
+r; t=0.00 12:22:17
+
+. 
+. *------------------------------------------------------------------------------
+. * 3. Import the data, rename, label with the original headers
+. *------------------------------------------------------------------------------
+. import excel using "`xlsx'", sheet("`sheet'") cellrange(A2) clear
+(67 vars, 100 obs)
+r; t=0.12 12:22:18
+
+. unab cols : _all
+r; t=0.00 12:22:18
+
+. assert `: word count `cols'' == `K'
+r; t=0.00 12:22:18
+
+. rename (`cols') (`vars')
+r; t=0.02 12:22:18
+
+. 
+. forvalues i = 1/`K' {
+  2.     local v : word `i' of `vars'
+  3.     local h "`h`i''"
+  4.     label variable `v' `"`h'"'
+  5. }
+r; t=0.00 12:22:18
+
+. 
+. drop if missing(doi) & missing(title)     // stray blank rows, if any
+(0 observations deleted)
+r; t=0.00 12:22:18
+
+. 
+. * Issue mixes numbers and text ("4-5", "S1") - keep as string
+. capture confirm string variable issue
+r; t=0.00 12:22:18
+
+. if _rc tostring issue, replace
+r; t=0.00 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 4. Tidy strings
+. *------------------------------------------------------------------------------
+. ds, has(type string)
+journal       author_names  issue         oa_status     jel_model     pc_causal_~t  pc_mechani~s  author_dis~s
+title         author_insts  oa_topic      top15_econ    jel_authors   pc_descrip~e  pc_specifi~s  multidisc
+doi           author_cou~s  oa_subfield   top15_all     research_t~e  pc_uninten~d  primary_pc    multidisc_~b
+abstract      journal_name  oa_keywords   item_type     emp_design    pc_predict~l  policy_stu~d  llm_notes
+pol_cited_~y  pub_date_str  open_access   topic_llm     pc_novel_p~y  pc_cost_be~t  policy_eval   openalex_id
+r; t=0.01 12:22:18
+
+. foreach v in `r(varlist)' {
+  2.     replace `v' = strtrim(stritrim(`v'))
+  3. }
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+r; t=0.00 12:22:18
+
+. replace doi = lower(doi)
+(0 real changes made)
+r; t=0.00 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 5. Yes/No -> 0/1 (blank -> missing)
+. *------------------------------------------------------------------------------
+. label define yesno 0 "No" 1 "Yes"
+r; t=0.00 12:22:18
+
+. 
+. local yesno pol_cited_any open_access top15_econ top15_all                   ///
+>     pc_novel_policy pc_causal_effect pc_descriptive pc_unintended            ///
+>     pc_predicts_model pc_cost_benefit pc_mechanisms pc_specific_groups       ///
+>     policy_eval multidisc multidisc_noneb
+r; t=0.00 12:22:18
+
+. 
+. foreach v of local yesno {
+  2.     assert inlist(`v', "Yes", "No", "")
+  3.     local lab : variable label `v'
+  4.     gen byte `v'_n = cond(`v' == "Yes", 1, cond(`v' == "No", 0, .))
+  5.     order `v'_n, after(`v')
+  6.     drop `v'
+  7.     rename `v'_n `v'
+  8.     label variable `v' `"`lab'"'
+  9.     label values `v' yesno
+ 10. }
+(18 missing values generated)
+(18 missing values generated)
+r; t=0.01 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 6. Categorical codes -> labelled numerics
+. *    noextend: errors if a value appears that is not in the codebook
+. *------------------------------------------------------------------------------
+. label define research_type 1 "empirical" 2 "theory_and_empirical"            ///
+>     3 "theoretical" 4 "econometric_methods" 5 "review_or_synthesis" 6 "other"
+r; t=0.00 12:22:18
+
+. label define emp_design 1 "experimental" 2 "quasi_experimental"              ///
+>     3 "structural" 4 "descriptive_or_correlational"                          ///
+>     5 "forecasting_or_calibration" 6 "not_empirical"
+r; t=0.00 12:22:18
+
+. * "proposes_novel_policy" does not occur in v0.2 - spelling assumed
+. label define primary_pc 0 "none" 1 "proposes_novel_policy"                  ///
+>     2 "causal_effect_of_policy" 3 "descriptive_fact"                         ///
+>     4 "unintended_consequences" 5 "predicts_effects_with_models"             ///
+>     6 "cost_benefit_or_welfare" 7 "identifies_mechanisms"                    ///
+>     8 "impacts_on_specific_groups"
+r; t=0.00 12:22:18
+
+. label define policy_studied 0 "none" 1 "existing_policy"                     ///
+>     2 "proposed_or_hypothetical_policy" 3 "both"
+r; t=0.00 12:22:18
+
+. label define item_type 1 "research_article" 2 "review_article" 3 "non_research"
+r; t=0.00 12:22:18
+
+. label define oa_status 1 "gold" 2 "diamond" 3 "hybrid" 4 "bronze"            ///
+>     5 "green" 6 "closed"
+r; t=0.00 12:22:18
+
+. 
+. foreach v in research_type emp_design primary_pc policy_studied item_type oa_status {
+  2.     local lab : variable label `v'
+  3.     encode `v', gen(`v'_n) label(`v') noextend
+  4.     order `v'_n, after(`v')
+  5.     drop `v'
+  6.     rename `v'_n `v'
+  7.     label variable `v' `"`lab'"'
+  8. }
+r; t=0.00 12:22:18
+
+. 
+. * Journal: keep the short code (string) and add a labelled numeric version
+. encode journal, gen(journal_id)
+r; t=0.00 12:22:18
+
+. order journal_id, after(journal)
+r; t=0.00 12:22:18
+
+. label variable journal_id "Journal (numeric)"
+r; t=0.00 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 7. Dates and IDs
+. *------------------------------------------------------------------------------
+. gen pub_date = date(pub_date_str, "YMD")
+r; t=0.00 12:22:18
+
+. format pub_date %td
+r; t=0.00 12:22:18
+
+. assert !missing(pub_date) if pub_date_str != ""
+r; t=0.00 12:22:18
+
+. assert year(pub_date) == year
+r; t=0.00 12:22:18
+
+. order pub_date, after(pub_date_str)
+r; t=0.00 12:22:18
+
+. drop pub_date_str
+r; t=0.00 12:22:18
+
+. label variable pub_date "Publication date"
+r; t=0.00 12:22:18
+
+. 
+. gen openalex_wid = subinstr(openalex_id, "https://openalex.org/", "", 1)
+r; t=0.00 12:22:18
+
+. order openalex_wid, after(openalex_id)
+r; t=0.00 12:22:18
+
+. label variable openalex_wid "OpenAlex work ID (W...)"
+r; t=0.00 12:22:18
+
+. 
+. isid doi
+r; t=0.01 12:22:18
+
+. isid openalex_id
+r; t=0.00 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 8. Range and consistency checks (all hold in v0.2)
+. *------------------------------------------------------------------------------
+. assert inrange(jargon, 1, 5)
+r; t=0.00 12:22:18
+
+. assert inrange(sent_complexity, 1, 5)
+r; t=0.00 12:22:18
+
+. assert inrange(year, 2016, 2025)
+r; t=0.00 12:22:18
+
+. 
+. assert pol_cited_any == (pol_cites > 0)
+r; t=0.00 12:22:18
+
+. assert pol_cites_all == pol_cites + pol_cites_excl_wp
+r; t=0.00 12:22:18
+
+. assert pol_cites == pol_cites_gov + pol_cites_igo + pol_cites_leg + pol_cites_thinktank
+r; t=0.00 12:22:18
+
+. assert pol_cites == pol_cites_us + pol_cites_europe + pol_cites_intl + pol_cites_othctry
+r; t=0.00 12:22:18
+
+. assert missing(pol_first_year) == (pol_cites == 0)
+r; t=0.00 12:22:18
+
+. assert pol_years_to_first == pol_first_year - year if !missing(pol_first_year)
+r; t=0.00 12:22:18
+
+. 
+. * Policy evaluation is computed from other codes (see Read me sheet)
+. assert policy_eval == ((pc_causal_effect | pc_unintended)                    ///
+>     & inlist(emp_design, 1, 2, 3))
+r; t=0.00 12:22:18
+
+. 
+. * Some papers are cited in policy before journal publication (working-paper
+. * versions), so years-to-first can be negative. Flag rather than drop.
+. gen byte pol_cited_prepub = pol_years_to_first < 0 if !missing(pol_years_to_first)
+(37 missing values generated)
+r; t=0.00 12:22:18
+
+. label values pol_cited_prepub yesno
+r; t=0.00 12:22:18
+
+. label variable pol_cited_prepub "First policy citation before publication year"
+r; t=0.00 12:22:18
+
+. order pol_cited_prepub, after(pol_years_to_first)
+r; t=0.00 12:22:18
+
+. 
+. *------------------------------------------------------------------------------
+. * 9. Save
+. *------------------------------------------------------------------------------
+. compress
+  variable journal_id was long now byte
+  variable pub_date was float now int
+  variable oa_status was long now byte
+  variable item_type was long now byte
+  variable research_type was long now byte
+  variable emp_design was long now byte
+  variable primary_pc was long now byte
+  variable policy_studied was long now byte
+  (2,300 bytes saved)
+r; t=0.00 12:22:18
+
+. label data "Overton merged sample v0.2: 100 papers, one row per paper"
+r; t=0.00 12:22:18
+
+. note: Source: `xlsx', sheet "`sheet'". Created by analysis/01_import_clean.do on `c(current_date)'.
+r; t=0.01 12:22:18
+
+. sort journal year doi
+r; t=0.00 12:22:18
+
+. 
+. describe, short
+
+Contains data
+ Observations:           100                  Overton merged sample v0.2: 100 papers, one row per paper
+    Variables:            70                  
+Sorted by: journal  year  doi
+     Note: Dataset has changed since last saved.
+r; t=0.01 12:22:18
+
+. codebook pol_cites acad_cites research_type emp_design primary_pc, compact
+
+Variable      Obs Unique   Mean  Min  Max  Label
+------------------------------------------------------------------------------------------------------------------------------
+pol_cites     100     28   8.34    0  115  Policy citations
+acad_cites    100     67  82.39    0  808  Academic citations (OpenAlex)
+research_t~e  100      6      2    1    6  Research type
+emp_design    100      6    3.6    1    6  Empirical design
+primary_pc    100      8   1.91    0    8  Primary policy category
+------------------------------------------------------------------------------------------------------------------------------
+r; t=0.01 12:22:18
+
+. 
+. save "analysis/output/overton_sample_clean.dta", replace
+(file analysis/output/overton_sample_clean.dta not found)
+file analysis/output/overton_sample_clean.dta saved
+r; t=0.00 12:22:18
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\u2272618\GitHub\RTW-Overton-Analysis\data\analysis/output/01_import_clean.log
+  log type:  text
+ closed on:  29 Oct 2026, 12:22:18
+------------------------------------------------------------------------------------------------------------------------------

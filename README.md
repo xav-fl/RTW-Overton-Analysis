@@ -25,8 +25,8 @@ All outputs are in [`data/release/`](data/release).
 | `excluded_items.csv` | 3,042 | Journal items that are not research papers (comments, corrections, front matter …), with the reason |
 | `overton_doi_*.txt` | | DOI lists to upload to Overton |
 
-Column definitions for the coded fields are in the Stage 2 and Stage 3 tables
-below, and the coding rules are in [`config/llm_codebook_v0.2.txt`](config/llm_codebook_v0.2.txt).
+Every column of `papers_coded_cited.csv` is defined in
+[`DATA_DICTIONARY.md`](DATA_DICTIONARY.md). The coding rules are in [`config/llm_codebook_v0.2.txt`](config/llm_codebook_v0.2.txt).
 [`reports/`](reports) holds the run reports, and `data/review/` holds the
 samples set aside for human checking.
 
